@@ -399,73 +399,71 @@
         
         <div class="row" data-aos="fade-in">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch mx-auto">
-            <form id="contact-form" method="post" role="form">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
               <div class="row">
-                  <div class="form-group col-md-6">
-                      <label for="name">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="name" required>
-                  </div>
-                  <div class="form-group col-md-6">
-                      <label for="name">Your Email</label>
-                      <input type="email" class="form-control" name="email" id="email" required>
-                  </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
+                </div>
               </div>
               <div class="form-group">
-                  <label for="name">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject" required>
+                <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required>
               </div>
               <div class="form-group">
-                  <label for="name">Message</label>
-                  <textarea class="form-control" name="message" rows="10" required></textarea>
+                <label for="name">Message</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
               </div>
               <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message is on its way!</div>
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button name="submitbtn" type="submit">Send Message</button></div>
-          </form>
-          
-          <!-- Include the Email.js library -->
-          <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-          <script>
-              (function () {
-                  // Initialize Email.js with your service ID and template ID
-                  emailjs.init("hBPhipZwJcLE4kndC");
-          
-                  // Handle form submission
-                  document.getElementById("contact-form").addEventListener("submit", function (event) {
-                      event.preventDefault();
-          
-                      // Display loading message
-                      var loadingElement = document.querySelector(".loading");
-                      loadingElement.style.display = "block";
-          
-                      // Send the email
-                      emailjs.sendForm("default_service", "template_4eb3smb", this)
-                          .then(function (response) {
-                              // Hide loading message
-                              loadingElement.style.display = "none";
-          
-                              // Display success message
-                              var successMessage = document.querySelector(".sent-message");
-                              successMessage.style.display = "block";
-          
-                              // Clear the form
-                              document.getElementById("contact-form").reset();
-                          }, function (error) {
-                              // Hide loading message
-                              loadingElement.style.display = "none";
-          
-                              // Display error message
-                              var errorMessage = document.querySelector(".error-message");
-                              errorMessage.style.display = "block";
-                              errorMessage.textContent = "Oops! Something went wrong. Please try again later.";
-                          });
-                  });
-              })();
-          </script>
-          
+            </form>
+            <!-- Include the Email.js library -->
+            <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+            <script>
+                (function () {
+                    // Initialize Email.js with your service ID and template ID
+                    emailjs.init("hBPhipZwJcLE4kndC"); // Replace with your User ID
+
+                    // Handle form submission
+                    document.getElementById("contact-form").addEventListener("submit", function (event) {
+                        event.preventDefault();
+
+                        // Display loading message
+                        var loadingElement = document.querySelector(".loading");
+                        loadingElement.style.display = "block";
+
+                        // Send the email
+                        emailjs.sendForm("service_ozbervt", "template_4eb3smb", this)
+                            .then(function (response) {
+                                // Hide loading message
+                                loadingElement.style.display = "none";
+
+                                // Display success message
+                                var successMessage = document.querySelector(".sent-message");
+                                successMessage.style.display = "block";
+
+                                // Clear the form
+                                document.getElementById("contact-form").reset();
+                            }, function (error) {
+                                // Hide loading message
+                                loadingElement.style.display = "none";
+
+                                // Display error message
+                                var errorMessage = document.querySelector(".error-message");
+                                errorMessage.style.display = "block";
+                                errorMessage.textContent = "Oops! Something went wrong. Please try again later.";
+                            });
+                    });
+                })();
+            </script>
           </div>
            
 
