@@ -425,42 +425,27 @@
 
         <div class="row" data-aos="fade-in">
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch mx-auto">
-
-            <form action="https://formspree.io/f/xoqoppve" method="POST">
-
-            </form>
-
-            <!-- Include the Email.js library
-            
-            <script>
-              function sendMessage() {
-                (function () {
-                  emailjs.init("hBPhipZwJcLE4kndC"); //account public key
-                })();
-            
-                var serviceID = "service_ozbervt";
-                var templateID = "template_4eb3smb";
-            
-                var params = {
-                  sendername: document.querySelector("#name").value,
-                  senderemail: document.querySelector("#email").value,
-                  subject: document.querySelector("#subject").value,
-                  message: document.querySelector("#message").value // Corrected the selector here
-                };
-            
-                emailjs.send(serviceID, templateID, params)
-                  .then(function (res) {
-                    alert('Thank you ' + params['sendername'] + '. Your message has been sent!!');
-                  });
-            
-                // Prevent the default form submission
-                return false;
-              }
-            </script> -->
+            <div class="card border shadow p-4">
+              <form action="https://formspree.io/f/xoqoppve" method="POST">
+                <div class="row">
+                  <div class="form-group col-md-6 py-2">
+                    <input type="text" name="name" class="form-control" placeholder="Enter your Name...">
+                  </div>
+                  <div class="form-group col-md-6 py-2">
+                    <input type="email" name="email" class="form-control" placeholder="Enter your Email...">
+                  </div>
+                  <div class="form-group col-md-12 py-3">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Enter your Message..."></textarea>
+                  </div>
+                  <div class="form-group col-md-12 mb-0">
+                    <button type="submit" class="btn btn-primary btn-block" id="full-width-button">Submit</button>
+                  </div>  
+                </div>
+              </form>
+            </div>
           </div>
-
-
         </div>
+        
 
       </div>
     </section><!-- End Contact Section -->
