@@ -248,7 +248,7 @@ function render() {
   //
   
   text = new Text({
-    copy: "I am Sorry Riju ❤️",
+    copy: "I am Sorry Angel ❤️",
   });
 
   canvas.addEventListener("click", (e) => {
