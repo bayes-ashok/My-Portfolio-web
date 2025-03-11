@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Lust Check</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="fade-in">Do You Feel Our Lust?</h1>
+        <p class="fade-in delay-1">Let’s see how our lust aligns with our love...</p>
+        <div id="quiz">
+            <div class="quiz-question">
+                <p>What’s the most favourite part of you that I want to feel?</p>
+                <button onclick="checkAnswer('Boobs', this, 0)">A. Your Boobs</button>
+                <button onclick="checkAnswer('x', this, 0)">B. Your Lips</button>
+                <button onclick="checkAnswer('x', this, 0)">C. Your Hips</button>
+            </div>
+            <div class="quiz-question hidden">
+                <p>What’s my ultimate sexting fantasy with you?</p>
+                <button onclick="checkAnswer('Naked', this, 1)">A. Seeing You Naked completely</button>
+                <button onclick="checkAnswer('yy', this, 1)">B. A long sex call</button>
+                <button onclick="checkAnswer('adas', this, 2)">C. Flashing you my D in middle of chat</button>
+            </div>
+            <div class="quiz-question hidden">
+                <p>What’s my lusty intention with you?</p>
+                <button onclick="checkAnswer('xx', this, 2)">A. Just finger you</button>
+                <button onclick="checkAnswer('xx', this, 2)">B. A long make out session with you on top</button>
+                <button onclick="checkAnswer('xx', this, 2)">C. Get a BJ</button>
+                <button onclick="checkAnswer('All', this, 2)">D. All of them and even more pleasee!!</button>
+            </div>
+        </div>
+        <p id="quiz-result" class="hidden">Our hearts beat as one! <a href="letter.html">A Gift Awaits</a></p>
+    </div>
+    <div id="hearts"></div>
+    <script src="script.js"></script>
+</body>
+</html>
