@@ -46,9 +46,6 @@
                             <option value="above50">Above ₨50L</option>
                         </select>
                         <input type="number" id="groomAge" placeholder="Age" required>
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="house"> Owns House
-                        </label>
                         <div class="land-input">
                             <input type="number" id="landAmount" placeholder="Land Amount" step="0.1">
                             <select id="landUnit">
@@ -60,9 +57,19 @@
                         </div>
                         <select id="otherAssets">
                             <option value="none">Other Assets</option>
+                            <option value="none">None</option>
                             <option value="some">Some (e.g., Car, Savings)</option>
                             <option value="significant">Significant (e.g., Investments)</option>
                         </select>
+                        <div class="toggle-container" style="align-content: start;">
+                            <label class="toggle-label">Owns House</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="house">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <br>
+                        
                     </div>
                 </section>
 
@@ -89,6 +96,7 @@
                         </select>
                         <select id="brideIncome">
                             <option value="none">Annual Income</option>
+                            <option value="none">No Income</option>
                             <option value="below5">Below ₨5L</option>
                             <option value="5to10">₨5L - ₨10L</option>
                             <option value="10to20">₨10L - ₨20L</option>
