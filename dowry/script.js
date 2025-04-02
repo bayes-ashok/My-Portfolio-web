@@ -279,7 +279,7 @@ document.getElementById('nameForm').addEventListener('submit', function (e) {
 
     // Special Condition (if cash is negative)
     if (cash < 0) {
-        const specialCondition = `Special Condition: Even though the Bride is more capable, the parties agree to uphold cultural practices. Therefore, the Bride shall provide a minimum dowry of ₨100,000, as calculated by the Dowry Estimator Pro tool.`;
+        const specialCondition = `Special Condition: Even though the Bride is more capable, the parties agree to uphold cultural practices. Therefore, the Bride shall provide a minimum dowry of Rs. 100,000, as calculated by the Dowry Estimator Pro tool.`;
         const splitCondition = doc.splitTextToSize(specialCondition, 170);
         doc.text(splitCondition, 20, yPos);
         yPos += splitCondition.length * 5 + 10;
