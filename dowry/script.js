@@ -31,14 +31,14 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (groomEdu === 'bachelor') score += 4;
     else if (groomEdu === 'master') score += 6;
     else if (groomEdu === 'phd') score += 8;
-    console.log("point 1: "+score);
+    console.log("point 1: " + score);
 
 
     if (groomJob === 'labor') score += 2;
     else if (groomJob === 'private') score += 4;
     else if (groomJob === 'govt') score += 6;
     else if (groomJob === 'professional') score += 8;
-    console.log("point 2: "+score);
+    console.log("point 2: " + score);
 
 
     if (groomIncome === 'below5') score += 1;
@@ -46,26 +46,26 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (groomIncome === '10to20') score += 5;
     else if (groomIncome === '20to50') score += 7;
     else if (groomIncome === 'above50') score += 10;
-    console.log("point 3: "+score);
+    console.log("point 3: " + score);
 
 
     if (ownsHouse) score += 3;
-    if (landInAcres >= 1 && landInAcres <= 5) score += 2;
+    if (landInAcres > 0 && landInAcres <= 5) score += 2;
     else if (landInAcres < 10 && landInAcres > 5) score += 4;
     else if (landInAcres >= 10) score += 6;
-    console.log("point 4: "+score);
+    console.log("point 4: " + score);
 
 
     if (otherAssets === 'some') score += 1;
     else if (otherAssets === 'significant') score += 3;
 
     let cash = 200000 + (score * 100000);
-    console.log("point 5: "+score);
+    console.log("point 5: " + score);
     if (ownsHouse) cash += 500000;
     if (landInAcres > 0) cash += Math.floor(landInAcres * 200000);
     if (otherAssets === 'some') cash += 200000;
     else if (otherAssets === 'significant') cash += 500000;
-    console.log("point 2: "+cash);
+    console.log("point 2: " + cash);
 
 
     if (brideEdu === 'none') cash -= 0;
@@ -108,30 +108,45 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     }
 
     if (score >= 0 && score <= 10) {
-        gold = 2; 
-        goldValue = gold * 60000; 
+        gold = 2;
+        goldValue = gold * 60000;
     } else if (score <= 15) {
         gold = 5;
         goldValue = gold * 60000;
     } else if (score <= 25) {
-        gold = 10; 
+        gold = 10;
         goldValue = gold * 60000;
     } else if (score > 25) {
-        gold = 20; 
+        gold = 20;
         goldValue = gold * 60000;
     }
 
-    const total = cash + carValue + goldValue;
+    // Adjust cash if negative
+    let displayCash = cash;
+    let message = '';
+    if (cash < 0) {
+        displayCash = 100000;
+        message = `
+        <p style="font-size: 14px; color: #ffd700;">
+            Even though the bride is more capable, we don't go against the ritual and make the groom pay; still, the bride has to give a dowry of ₨100,000.
+        </p>
+    `;
+    } else {
+        message = ``;
+    }
     const result = `
     <div style="text-align: center;">
         <h2 style="font-size: 24px; margin-bottom: 10px;">Dowry Estimate</h2>
-        <p><strong>Cash:</strong> ₨ ${cash.toLocaleString()}</p>
+        ${cash >= 0 ? `<p><strong>Cash:</strong> ₨ ${cash.toLocaleString()}</p>` : ''}
         <p><strong>Car:</strong> ${car}</p>
         <p><strong>Gold:</strong> ${gold} tola</p>
+        ${message}
+        <br>
         <p style="font-size: 12px; color: #888;">
             This is not for educational purposes, but for real-life use. We encourage you to use it; understand and recognize your worth.        
         </p>
     </div>
+   
 `;
 
     const resultDiv = document.getElementById('result');
