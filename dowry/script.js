@@ -80,15 +80,15 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (brideAge > 30) cash -= 50000;
 
     let car = '', carValue = 0, gold = 0, goldValue = 0;
-    if (score < 5) {
+    if (score < 15) {
         car = 'None';
-    } else if (score <= 10) {
+    } else if (score <= 20) {
         car = 'Maruti Suzuki';
         carValue = 500000;
-    } else if (score <= 15) {
+    } else if (score <= 25) {
         car = 'Hyundai';
         carValue = 1000000;
-    } else if (score <= 25) {
+    } else if (score <= 30) {
         car = 'Toyota';
         carValue = 2000000;
     } else {
@@ -107,11 +107,8 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     <div style="text-align: center;">
         <h2 style="font-size: 24px; margin-bottom: 10px;">Dowry Estimate</h2>
         <p><strong>Cash:</strong> ₨ ${cash.toLocaleString()}</p>
-        <p><strong>Car:</strong> ${car} ${carValue > 0 ? `(₨ ${carValue.toLocaleString()})` : ''}</p>
-        <p><strong>Gold:</strong> ${gold}g (₨ ${goldValue.toLocaleString()})</p>
-        <p style="font-size: 18px; font-weight: bold; color: #5cb85c;">
-            Total: ₨ ${total.toLocaleString()}
-        </p>
+        <p><strong>Car:</strong> ${car}</p>
+        <p><strong>Gold:</strong> ${gold}g</p>
         <p style="font-size: 12px; color: #888;">
             This is not for educational purposes, but for real-life use. We encourage you to use it; understand and recognize your worth.        
         </p>
