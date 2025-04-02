@@ -76,8 +76,8 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (brideIncome === '10to20') cash -= 100000;
     else if (brideIncome === 'above20') cash -= 200000;
 
-    if (brideAge < 25) cash += 100000;
-    else if (brideAge > 30) cash -= 50000;
+    if (brideAge < 25) cash -= 100000;
+    else if (brideAge > 30) cash += 100000;
 
     let car = '', carValue = 0, gold = 0, goldValue = 0;
     if (score < 15) {
