@@ -102,7 +102,6 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (score > 25) gold = 200, goldValue = 1000000;
 
     const total = cash + carValue + goldValue;
-
     const result = `
     <div style="text-align: center;">
         <h2 style="font-size: 24px; margin-bottom: 10px;">Dowry Estimate</h2>
