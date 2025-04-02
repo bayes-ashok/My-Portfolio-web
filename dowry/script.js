@@ -132,7 +132,7 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
         </p>
     `;
     } else {
-        message = ``;
+        message = ``; 
     }
     const result = `
     <div style="text-align: center;">
@@ -141,7 +141,7 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
         <p><strong>Car:</strong> ${car}</p>
         <p><strong>Gold:</strong> ${gold} tola</p>
         ${message}
-        <br>
+        <br> 
         <p style="font-size: 12px; color: #888;">
             This is not for educational purposes, but for real-life use. We encourage you to use it; understand and recognize your worth.        
         </p>
