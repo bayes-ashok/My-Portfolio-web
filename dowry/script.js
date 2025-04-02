@@ -43,7 +43,6 @@ document.getElementById('dowryForm').addEventListener('submit', function (e) {
     else if (groomIncome === '20to50') score += 7;
     else if (groomIncome === 'above50') score += 10;
 
-    if (ownsHouse) score += 3;
     if (landInAcres >= 1 && landInAcres < 5) score += 2;
     else if (landInAcres < 10) score += 4;
     else if (landInAcres >= 10) score += 6;
