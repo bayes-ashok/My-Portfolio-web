@@ -6,6 +6,8 @@
     <title>Dowry Estimator Pro</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -33,8 +35,9 @@
                             <option value="none">Unemployed</option>
                             <option value="labor">Labor/Entry-Level</option>
                             <option value="private">Private Job</option>
-                            <option value="govt">Government Job</option>
                             <option value="professional">Business/Professional</option>
+                            <option value="govt">Government Job</option>
+
                         </select>
                         <select id="groomIncome" required>
                             <option value="">Annual Income</option>
@@ -61,15 +64,13 @@
                             <option value="some">Some (e.g., Car, Savings)</option>
                             <option value="significant">Significant (e.g., Investments)</option>
                         </select>
-                        <div class="toggle-container" style="align-content: start;">
+                        <div class="toggle-container">
                             <label class="toggle-label">Owns House</label>
                             <label class="toggle-switch">
                                 <input type="checkbox" id="house">
                                 <span class="slider"></span>
                             </label>
                         </div>
-                        <br>
-                        
                     </div>
                 </section>
 
@@ -91,12 +92,11 @@
                             <option value="none">Unemployed</option>
                             <option value="labor">Labor/Entry-Level</option>
                             <option value="private">Private Job</option>
-                            <option value="govt">Government Job</option>
                             <option value="professional">Business/Professional</option>
+                            <option value="govt">Government Job</option>
                         </select>
                         <select id="brideIncome">
                             <option value="none">Annual Income</option>
-                            <option value="none">No Income</option>
                             <option value="below5">Below ₨5L</option>
                             <option value="5to10">₨5L - ₨10L</option>
                             <option value="10to20">₨10L - ₨20L</option>
@@ -110,6 +110,21 @@
         </div>
 
         <div id="result" class="result-card hidden"></div>
+        <!-- Download PDF Button -->
+        <button id="downloadPdfBtn" class="submit-btn hidden">Download Report as PDF</button>
+
+        <!-- Modal for Bride and Groom Names -->
+        <div id="nameModal" class="modal hidden">
+            <div class="modal-content">
+                <h3>Enter Bride and Groom Names</h3>
+                <form id="nameForm">
+                    <input type="text" id="brideName" placeholder="Bride's Full Name" required>
+                    <input type="text" id="groomName" placeholder="Groom's Full Name" required>
+                    <button type="submit" class="submit-btn">Generate PDF</button>
+                    <button type="button" id="closeModal" class="submit-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
