@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimony Calculator Nepal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Alimony Calculator Nepal</h1>
+            <p>Calculate alimony in NPR based on Nepalese legal considerations</p>
+        </header>
+
+        <main>
+            <form id="alimonyForm" class="calculator-form">
+                <section class="form-section">
+                    <h2>Spousal Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Higher Earner's Name</label>
+                            <input type="text" id="spouse1Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Lower Earner's Name</label>
+                            <input type="text" id="spouse2Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Higher Earner's Monthly Income (NPR)</label>
+                            <input type="number" id="income1" required min="0" step="0.01"
+                                   oninput="validateIncome(this, document.getElementById('income2'))">
+                        </div>
+                        <div class="form-group">
+                            <label>Lower Earner's Monthly Income (NPR)</label>
+                            <input type="number" id="income2" required min="0" step="0.01"
+                                   oninput="validateIncome(document.getElementById('income1'), this)">
+                        </div>
+                        <div class="form-group">
+                            <label>Years of Marriage</label>
+                            <input type="number" id="marriageYears" required min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Province</label>
+                            <select id="province">
+                                <option value="generic">Generic (Default)</option>
+                                <option value="province1">Koshi Province</option>
+                                <option value="province2">Madhesh Province</option>
+                                <option value="province3">Bagmati Province</option>
+                                <option value="province4">Gandaki Province</option>
+                                <option value="province5">Lumbini Province</option>
+                                <option value="province6">Karnali Province</option>
+                                <option value="province7">Sudurpashchim Province</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Children Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Number of Children</label>
+                            <input type="number" id="children" required min="0" max="20">
+                        </div>
+                        <div class="form-group">
+                            <label>Custody Percentage (% to Lower Earner)</label>
+                            <input type="number" id="custody" min="0" max="100" value="50">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h2>Additional Factors</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Alimony Type</label>
+                            <select id="alimonyType">
+                                <option value="temporary">Temporary</option>
+                                <option value="permanent">Permanent</option>
+                                <option value="lump-sum">Lump-Sum</option>
+                                <option value="rehabilitative">Rehabilitative</option>
+                                <option value="reimbursement">Reimbursement</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Property/Assets Value (NPR)</label>
+                            <input type="number" id="assets" min="0" value="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Debt Amount (NPR)</label>
+                            <input type="number" id="debt" min="0" value="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Inflation Rate (%)</label>
+                            <input type="number" id="inflation" min="0" max="100" value="5" step="0.1">
+                        </div>
+                    </div>
+                </section>
+
+                <button type="submit" class="btn calculate-btn">Calculate Alimony</button>
+            </form>
+
+            <section id="result" class="result-section hidden">
+                <h2>Calculation Results</h2>
+                <div class="result-grid">
+                    <div id="amountDiv"><strong id="amountLabel">Monthly Alimony:</strong> NPR <span id="amountValue"></span></div>
+                    <div id="durationDiv"><strong>Duration:</strong> <span id="duration"></span></div>
+                    <div id="totalDiv"><strong id="totalLabel">Total Amount:</strong> NPR <span id="totalValue"></span></div>
+                    <div id="adjustedDiv"><strong id="adjustedLabel">Inflation-Adjusted Total:</strong> NPR <span id="adjustedValue"></span></div>
+                </div>
+                <button id="generatePdf" class="btn pdf-btn">Generate Legal Agreement PDF</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2081 BS Alimony Calculator Nepal. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Inline JavaScript for income validation (HTML-only solution)
+        function validateIncome(higherInput, lowerInput) {
+            const higherValue = parseFloat(higherInput.value) || 0;
+            const lowerValue = parseFloat(lowerInput.value) || 0;
+            if (higherValue < lowerValue) {
+                higherInput.setCustomValidity("Higher earner's income must be greater than or equal to lower earner's income.");
+            } else {
+                higherInput.setCustomValidity(""); // Clear the error if valid
+            }
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
