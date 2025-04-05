@@ -151,7 +151,26 @@ function displayResults(data) {
         document.getElementById('totalDiv').style.display = 'block';
         document.getElementById('adjustedDiv').style.display = 'block';
     }
+    const resultSection = document.getElementById('result');
+    let funnyMessage = document.getElementById('funnyMessage');
+    if (!funnyMessage) {
+        funnyMessage = document.createElement('p');
+        funnyMessage.id = 'funnyMessage';
+        resultSection.appendChild(funnyMessage);
+    }
 
+    funnyMessage.style.fontStyle = 'italic';
+    funnyMessage.style.color = '#e74c3c'; // Vibrant red for attention
+    funnyMessage.style.fontSize = '14px'; // Slightly larger for emphasis
+    funnyMessage.style.lineHeight = '1.5'; // Better readability
+    funnyMessage.style.marginTop = '15px'; // More spacing from results
+    funnyMessage.style.padding = '8px'; // Padding for a "boxed" feel
+    funnyMessage.style.backgroundColor = '#f9ebeb'; // Light red background for contrast
+    funnyMessage.style.borderRadius = '5px'; // Rounded corners for a modern look
+    funnyMessage.style.textAlign = 'center'; // Centered for visual appeal
+
+    // Set the text with bolded "*highly reasonable*"
+    funnyMessage.innerHTML = "Didn’t find the calculation fair? Time to consult your ex—oops, sorry, we mean your <strong>highly reasonable</strong> former soulmate. Good luck negotiating with that expert in incompatible differences’!";
     document.getElementById('result').classList.remove('hidden');
 }
 
