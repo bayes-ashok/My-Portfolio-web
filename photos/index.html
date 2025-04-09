@@ -74,12 +74,13 @@
                 width: '0',
                 videoId: 'wqaF_so8RJs',
                 playerVars: {
-                    autoplay: 1,    // Auto-play enabled
-                    controls: 0,    // No controls visible
-                    loop: 1,        // Loop the video
-                    playlist: 'wqaF_so8RJs', // Required for looping
-                    start: 43,      // Start at 43 seconds
-                    mute: 0         // Start unmuted
+                    autoplay: 1,
+                    controls: 0,
+                    loop: 1,
+                    playlist: 'wqaF_so8RJs',
+                    start: 43,
+                    mute: 0,
+                    origin: 'https://www.ashok-shah.com.np' // Add your domain
                 },
                 events: {
                     'onReady': onPlayerReady,
@@ -90,13 +91,13 @@
         }
 
         function onPlayerReady(event) {
-            event.target.playVideo(); // Trigger playback
+            event.target.playVideo();
         }
 
         function onPlayerStateChange(event) {
             if (event.data == YT.PlayerState.ENDED) {
-                player.seekTo(43); // Restart at 43 seconds when it ends
-                player.playVideo(); // Continue playing
+                player.seekTo(43);
+                player.playVideo();
             }
         }
 
