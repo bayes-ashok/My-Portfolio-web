@@ -67,44 +67,52 @@
     
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-audio', {
-                height: '0',
-                width: '0',
-                videoId: 'wqaF_so8RJs',
-                playerVars: {
-                    autoplay: 1,
-                    controls: 0,
-                    loop: 1,
-                    playlist: 'wqaF_so8RJs',
-                    start: 44,
-                    mute: 0,
-                    origin: 'https://www.ashok-shah.com.np' // Add your domain
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onError': onPlayerError,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            event.target.playVideo();
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data == YT.PlayerState.ENDED) {
-                player.seekTo(44);
-                player.playVideo();
-            }
-        }
-
-        function onPlayerError(event) {
-            console.log('YouTube Player Error: ', event.data);
-        }
-    </script>
+      var player;
+      function onYouTubeIframeAPIReady() {
+          player = new YT.Player('youtube-audio', {
+              height: '0',
+              width: '0',
+              videoId: 'wqaF_so8RJs',
+              playerVars: {
+                  autoplay: 1,
+                  controls: 0,
+                  loop: 1,
+                  playlist: 'wqaF_so8RJs',
+                  start: 44,
+                  mute: 0,
+                  origin: 'https://www.ashok-shah.com.np' // Ensure this matches your exact domain
+              },
+              events: {
+                  'onReady': onPlayerReady,
+                  'onError': onPlayerError,
+                  'onStateChange': onPlayerStateChange
+              }
+          });
+      }
+  
+      function onPlayerReady(event) {
+          console.log('Player is ready');
+          event.target.playVideo();
+      }
+  
+      function onPlayerStateChange(event) {
+          if (event.data == YT.PlayerState.ENDED) {
+              player.seekTo(44);
+              player.playVideo();
+          }
+      }
+  
+      function onPlayerError(event) {
+          console.error('YouTube Player Error Code: ', event.data);
+          switch (event.data) {
+              case 2: console.error('Invalid video ID'); break;
+              case 5: console.error('HTML5 player error'); break;
+              case 100: console.error('Video not found'); break;
+              case 101: case 150: console.error('Video not allowed to play in embedded player'); break;
+              default: console.error('Unknown error'); break;
+          }
+      }
+  </script>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
