@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Should I Bath Today? (Honest Edition)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Should I Bath Today?</h1>
+        <p class="tagline">The only predictor that truly understands you.</p>
+
+        <div class="form-grid">
+            <div class="input-group">
+                <label>Your Name (easter egg included)</label>
+                <input type="text" id="name" placeholder="Try 'Ashok'">
+            </div>
+
+            <div class="input-group">
+                <label>Weather today</label>
+                <select id="weather">
+                    <option>Sunny</option>
+                    <option>Rainy</option>
+                    <option>Cold</option>
+                    <option>Earthquake?</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Mood</label>
+                <select id="mood">
+                    <option>Happy</option>
+                    <option>Sad</option>
+                    <option>Lazy</option>
+                    <option>I’ll bath tomorrow</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Did your crush see you today?</label>
+                <select id="crush">
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Last bath date</label>
+                <input type="date" id="last-bath">
+            </div>
+
+            <div class="input-group">
+                <label>Smell level (0 = fresh, 100 = Bhai please)</label>
+                <input type="range" min="0" max="100" value="40" id="smell">
+                <span id="smell-value">40</span>
+            </div>
+
+            <div class="input-group">
+                <label>Laziness level (0 = motivated, 100 = statue)</label>
+                <input type="range" min="0" max="100" value="85" id="laziness">
+                <span id="laziness-value">85</span>
+            </div>
+
+            <div class="input-group">
+                <label>Water availability</label>
+                <select id="water">
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Tyo pani Haina</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>People you will meet today</label>
+                <input type="number" min="0" max="50" value="0" id="people">
+            </div>
+
+            <div class="input-group">
+                <label>Mom shouted times today</label>
+                <input type="number" min="0" max="10" value="0" id="mom-shout">
+            </div>
+
+            <div class="input-group">
+                <label>Important event today?</label>
+                <select id="event">
+                    <option>No</option>
+                    <option>Online only</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Clean towel?</label>
+                <select id="towel">
+                    <option>Yes</option>
+                    <option>No</option>
+                    <option>Lost since 2021</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Did anyone complain about smell?</label>
+                <select id="complain">
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="predict-btn">TELL ME THE TRUTH</button>
+
+        <div id="result" class="hidden">
+            <h2>Final Verdict:</h2>
+            <p id="excuse-paragraph"></p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
