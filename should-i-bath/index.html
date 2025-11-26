@@ -3,119 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Should I Bath Today? (Honest Edition)</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Aaj Nahaana Hai? (Never Ever)</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Comic Sans MS',cursive,sans-serif;background:linear-gradient(135deg,#ff9a9e 0%,#fad0c4 100%);
+            min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px;}
+        .box{background:white;padding:25px;border-radius:25px;width:100%;max-width:420px;
+            box-shadow:0 15px 40px rgba(0,0,0,0.4);text-align:center;}
+        h1{font-size:28px;color:#e91e63;margin-bottom:5px;}
+        .tag{font-size:16px;color:#d81b60;margin-bottom:20px;}
+        .question{font-size:22px;margin:30px 0;line-height:1.4;}
+        select{width:90%;padding:16px;font-size:19px;border:4px solid #ff5722;border-radius:15px;background:#fff3e0;margin:10px 0;}
+        button{width:90%;padding:18px;font-size:22px;background:#ff5722;color:white;border:none;border-radius:15px;margin-top:15px;cursor:pointer;}
+        button:hover{background:#c2185b;transform:scale(1.05);}
+        .verdict{margin-top:25px;padding:25px;background:#000;color:lime;border-radius:20px;font-size:22px;line-height:1.6;display:none;}
+        .restart{background:lime !important;color:black !important;margin-top:20px;animation:bounce 1.5s infinite;}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Should I Bath Today?</h1>
-        <p class="tagline">The only predictor that truly understands you.</p>
 
-        <div class="form-grid">
-            <div class="input-group">
-                <label>Your Name </label>
-                <input type="text" id="name" >
-            </div>
-
-            <div class="input-group">
-                <label>Weather today</label>
-                <select id="weather">
-                    <option>Sunny</option>
-                    <option>Rainy</option>
-                    <option>Cold</option>
-                    <option>Earthquake?</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Mood</label>
-                <select id="mood">
-                    <option>Happy</option>
-                    <option>Sad</option>
-                    <option>Lazy</option>
-                    <option>I’ll bath tomorrow</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Did your crush see you today?</label>
-                <select id="crush">
-                    <option>No</option>
-                    <option>Yes</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Last bath date</label>
-                <input type="date" id="last-bath">
-            </div>
-
-            <div class="input-group">
-                <label>Smell level (0 = fresh, 100 = Bhai please)</label>
-                <input type="range" min="0" max="100" value="40" id="smell">
-                <span id="smell-value">40</span>
-            </div>
-
-            <div class="input-group">
-                <label>Laziness level (0 = motivated, 100 = statue)</label>
-                <input type="range" min="0" max="100" value="85" id="laziness">
-                <span id="laziness-value">85</span>
-            </div>
-
-            <div class="input-group">
-                <label>Water availability</label>
-                <select id="water">
-                    <option>Yes</option>
-                    <option>No</option>
-                    <option>Tyo pani Haina</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>People you will meet today</label>
-                <input type="number" min="0" max="50" value="0" id="people">
-            </div>
-
-            <div class="input-group">
-                <label>Mom shouted times today</label>
-                <input type="number" min="0" max="10" value="0" id="mom-shout">
-            </div>
-
-            <div class="input-group">
-                <label>Important event today?</label>
-                <select id="event">
-                    <option>No</option>
-                    <option>Online only</option>
-                    <option>Yes</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Clean towel?</label>
-                <select id="towel">
-                    <option>Yes</option>
-                    <option>No</option>
-                    <option>Lost since 2021</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Did anyone complain about smell?</label>
-                <select id="complain">
-                    <option>No</option>
-                    <option>Yes</option>
-                </select>
-            </div>
-        </div>
-
-        <button id="predict-btn">TELL ME THE TRUTH</button>
-
-        <div id="result" class="hidden">
-            <h2>Final Verdict:</h2>
-            <p id="excuse-paragraph"></p>
-        </div>
+    <!-- Hidden YouTube iframe - will be activated on first tap/click -->
+    <div id="bgm" style="position:fixed;width:1px;height:1px;opacity:0;pointer-events: none;">
+        <iframe id="ytplayer" src="https://www.youtube.com/embed/Cm0qaXi9THA?autoplay=1&loop=1&playlist=Cm0qaXi9THA&controls=0&modestbranding=1&rel=0" 
+                allow="autoplay" frameborder="0"></iframe>
     </div>
 
-    <script src="app.js"></script>
+    <div class="box">
+        <h1>Aaj Nahaana Hai?</h1>
+        <div class="tag">100% log bina nahaye nikal jaate hain</div>
+
+        <div id="question" class="question"></div>
+        <select id="ans"><option value="">Choose kar bhai</option></select>
+        <button id="next">Next</button>
+        <div id="verdict" class="verdict"></div>
+    </div>
+
+    <script>
+        // Start BGM on first user interaction (works on mobile + desktop)
+        let musicStarted = false;
+        function startBGM() {
+            if (musicStarted) return;
+            musicStarted = true;
+            const iframe = document.getElementById('ytplayer');
+            iframe.src = iframe.src; // forces play
+        }
+        document.body.addEventListener('click', startBGM, {once: true});
+        document.body.addEventListener('touchstart', startBGM, {once: true});
+
+        const questions = [
+            {q:"Ghar se bahar jaa raha hai aaj?", o:["Nahi yaar","Haan jaana padega"]},
+            {q:"Aaj kitne log tujhe dekhne wale hain?", o:["0","1-2","3+"]},
+            {q:"Abhi smell aa rahi hai kya?", o:["Bilkul nahi","Thodi si","Bohot zyada"]},
+            {q:"Kisi ne smell ki complaint ki?", o:["Koi nahi bola","Haan bola"]},
+            {q:"Sirf mummy-papa daant rahe hain?", o:["Haan bilkul","Nahi mujhe lag raha"]},
+            {q:"Nahaaega toh next 2 ghante mein farak padega?", o:["Bilkul nahi","Thoda sa"]},
+            {q:"Agar nahaya nahi toh dunia khatam?", o:["Nahi yaar","Shayad"]},
+            {q:"Sirf isliye soch raha kyuki log aise hi karte hain?", o:["Haan yaar","Nahi seriously"]}
+        ];
+
+        const roasts = [
+            { "Nahi yaar": ["Ghar pe hai toh nahana allowed nahi hai bc.","Tu ghar per hi hain din bhar. Tujhe kyu nahana hain?","Tu kahi nahi ja raha hain toh tujhe nahana kyu hain mc?"],
+              "Haan jaana padega": ["Thik hai hero, aage dekh lenge."] },
+            { "0": ["0 log = 0 tension. Tu invisible hai aaj. Matt naha","Koi dekh hi nahi raha, nahana waste hai."],
+              "1-2": ["Sirf 1-2 log? Woh toh bardaasht kar lenge.","Do log toh teri wajah se hasenge. Free entertainment.","1-2 log toh family jaise hain, smell se kya farak?"],
+              "3+": ["3+ log bhi survive kar lenge. Tu tension mat le.","Itne log bhi 2020 se guzar gaye hain."] },
+            { "Bilkul nahi": ["Tera nose bol raha tu fresh hai. Case closed.","Smell test pass. Nahana cancel.","Tu khud bol raha hai fresh hai. Science!","Tu already 10/10 hain iska matlab. So, matt naha bsdk"],
+              "Thodi si": ["Thodi si smell = personality hai bro.","Thodi si toh banta hai yaar.","That's just free cologne.","Thodi si smell = street cred."],
+              "Bohot zyada": ["Bohot zyada bhi chalega aage dekh lenge."] },
+            { "Koi nahi bola": ["Sab khush hain. Tu king hai aaj. Matt naaha","Koi complain nahi = sabko pasand tera style.","Silence = approval. Jury ne vote de diya.","Tu officially approved hai. Kyu nahana ab?"],
+              "Haan bola": ["Ek-do log bol diye toh kya? Minority report."] },
+            { "Haan bilkul": ["Rebel ban ja. Aaj nahana mat.","Mummy-papa ko bol new generation hai.","Parents ka rule nahi maanna.","Time to start a revolution. Tu matt naha, ignore kar mom dad ko!"],
+              "Nahi mujhe lag raha": ["Khud ko lag raha hai? Thik hai aage dekh lenge."] },
+            { "Bilkul nahi": ["8 minute barbaad? Bilkul nahi. Maggi kha le.","Time waste mat kar. Bed is calling.","2 ghante mein koi farak nahi = profit.","Water bill bacha raha hai tu, hero."],
+              "Thoda sa": ["Thoda sa farak? Not worth 8 minutes bro.","8 minute Maggi ban jaati usme."] },
+            { "Nahi yaar": ["Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi."],
+              "Shayad": ["50-50 chance? Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi. Risk le le, nahana mat."] },
+            { "Haan yaar": ["Society ka rule tod de. Gremlin ban ja.","Tu sheep nahi hai. Welcome to the gang.","Be the chaos the world needs.","Norms are for losers.","Tu ab official anti-bath activist hai."],
+              "Nahi seriously": ["Last chance tha bhai. Ab final verdict."] }
+        ];
+
+        let step = 0;
+        let answers = [];
+
+        const ques = document.getElementById('question');
+        const sel = document.getElementById('ans');
+        const ver = document.getElementById('verdict');
+        const btn = document.getElementById('next');
+
+        function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+        function load() {
+            if (step >= questions.length) { showFinalVerdict(); return; }
+            ques.textContent = questions[step].q;
+            sel.innerHTML = '<option value="">Choose kar</option>';
+            questions[step].o.forEach(x => {
+                let op = document.createElement('option');
+                op.value = x; op.textContent = x;
+                sel.appendChild(op);
+            });
+        }
+
+        function stopAndRoast(msg) {
+            ver.innerHTML = `<strong>RUK JA BHAI!</strong><br><br>${msg}<br><br>
+                            <big>NAHANA 100% CANCEL</big><br><br>Ja bed pe wapas let ja hero.`;
+            ver.style.display = 'block';
+            btn.style.display = 'none';
+            sel.style.display = 'none';
+            addRestart();
+        }
+
+        function addRestart() {
+            let r = document.createElement('button');
+            r.textContent = "PHIR SE TRY KAR CLEAN BOY";
+            r.className = "restart";
+            r.onclick = () => location.reload();
+            ver.appendChild(r);
+        }
+
+        btn.onclick = () => {
+            let choice = sel.value;
+            if (!choice) return alert("Arey bc, kuch toh choose kar!");
+
+            answers.push(choice);
+
+            const currentRoasts = roasts[step][choice];
+            if (currentRoasts && currentRoasts.length > 0) {
+                const lazyAnswers = ["Nahi yaar","0","Bilkul nahi","Thodi si","Koi nahi bola","Haan bilkul","Bilkul nahi","Nahi yaar","Haan yaar"];
+                if (lazyAnswers.includes(choice)) {
+                    stopAndRoast(rand(currentRoasts));
+                    return;
+                }
+            }
+
+            step++;
+            load();
+        };
+
+        function showFinalVerdict() {
+            let breakdown = "";
+            answers.forEach((ans, i) => {
+                let reason = "";
+                if (i===0) reason = ans==="Nahi yaar" ? "ghar pe hai toh nahana allowed nahi" : "bahar jaa raha hai lekin baaki sab cancel kar denge";
+                if (i===1) reason = ans==="0" ? "koi dekh hi nahi raha" : "sirf thodi si public hai, survive kar lenge";
+                if (i===2) reason = ans==="Bilkul nahi" ? "khud bol raha fresh hai" : "thodi si smell toh personality hai";
+                if (i===3) reason = "koi complain nahi = sabko pasand hai";
+                if (i===4) reason = ans==="Haan bilkul" ? "sirf parents daant rahe, unko ignore kar" : "khud ko lag raha lekin baaki sab theek";
+                if (i===5) reason = "2 ghante mein zero farak";
+                if (i===6) reason = "Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi. Risk le le, nahana mat.";
+                if (i===7) reason = "society ka pressure hai, rebel ban ja";
+                breakdown += `• "${ans}" → ${reason}<br>`;
+            });
+
+            ver.innerHTML = `<strong>Wah bhai poora quiz khel gaya!</strong><br><br>
+                            Teri har answer ka proof:<br><br>${breakdown}<br>
+                            <b>Final conclusion:</b><br>
+                            Bhai har answer chilaa rahi hai ki tujhe bilkul nahane ki zaroorat nahi. 
+                            Ghar pe hai ya bahar, koi dekh nahi raha ya thoda dekh raha toh bhi koi farak nahi, smell bhi theek hai, 
+                            koi complain nahi, mummy-papa ko ignore kar sakta hai, 2 ghante mein kuch nahi badlega aur dunia toh waise bhi chalti rahegi. 
+                            Society ka rule tod de aur bed + Maggi = life.<br><br>
+                            <big style="color:#0f0">AAJ BHI NAHANA CANCEL HO GAYA</big><br><br>
+                            Ab jaa, beautiful disaster.`;
+            ver.style.display = 'block';
+            btn.style.display = 'none';
+            sel.style.display = 'none';
+            addRestart();
+        }
+
+        load();
+    </script>
 </body>
 </html>
