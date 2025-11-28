@@ -1,176 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aaj Nahaana Hai? (Never Ever)</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Comic Sans MS',sans-serif;background:linear-gradient(135deg,#ff9a9e 0%,#fad0c4 100%);
-            min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px;}
-        .box{background:white;padding:25px;border-radius:25px;width:100%;max-width:420px;
-            box-shadow:0 15px 40px rgba(0,0,0,0.4);text-align:center;}
-        h1{font-size:28px;color:#e91e63;margin-bottom:5px;}
-        .tag{font-size:16px;color:#d81b60;margin-bottom:20px;}
-        .question{font-size:22px;margin:30px 0;line-height:1.4;}
-        select{width:90%;padding:16px;font-size:19px;border:4px solid #ff5722;border-radius:15px;background:#fff3e0;margin:10px 0;}
-        button{width:90%;padding:18px;font-size:22px;background:#ff5722;color:white;border:none;border-radius:15px;margin-top:15px;cursor:pointer;}
-        button:hover{background:#c2185b;transform:scale(1.05);}
-        .verdict{margin-top:25px;padding:25px;background:#000;color:lime;border-radius:20px;font-size:22px;line-height:1.6;display:none;}
-        .restart{background:lime !important;color:black !important;margin-top:20px;animation:bounce 1.5s infinite;}
-        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Comic Sans MS", sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+      }
+      .box {
+        background: white;
+        padding: 25px;
+        border-radius: 25px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+      h1 {
+        font-size: 28px;
+        color: #e91e63;
+        margin-bottom: 5px;
+      }
+      .tag {
+        font-size: 16px;
+        color: #d81b60;
+        margin-bottom: 15px;
+      }
+      .progress {
+        height: 12px;
+        background: #ffe0b2;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 15px 0;
+      }
+      .fill {
+        height: 100%;
+        background: #ff5722;
+        width: 0%;
+        transition: width 0.5s ease;
+      }
+      .question {
+        font-size: 22px;
+        margin: 25px 0;
+        line-height: 1.4;
+      }
+      select {
+        width: 90%;
+        padding: 16px;
+        font-size: 19px;
+        border: 4px solid #ff5722;
+        border-radius: 15px;
+        background: #fff3e0;
+        margin: 10px 0;
+      }
+      button {
+        width: 90%;
+        padding: 18px;
+        font-size: 22px;
+        background: #ff5722;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        margin-top: 15px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #c2185b;
+        transform: scale(1.05);
+      }
+      .verdict {
+        margin-top: 25px;
+        padding: 25px;
+        background: #000;
+        color: lime;
+        border-radius: 20px;
+        font-size: 22px;
+        line-height: 1.6;
+        display: none;
+      }
+      .restart {
+        background: lime !important;
+        color: black !important;
+        margin-top: 20px;
+        animation: bounce 1.5s infinite;
+      }
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
     </style>
-</head>
-<body>
-
-    <!-- Hidden YouTube iframe - will be activated on first tap/click -->
-    <div id="bgm" style="position:fixed;width:1px;height:1px;opacity:0;pointer-events: none;">
-        <iframe id="ytplayer" src="https://www.youtube.com/embed/Cm0qaXi9THA?autoplay=1&loop=1&playlist=Cm0qaXi9THA&controls=0&modestbranding=1&rel=0" 
-                allow="autoplay" frameborder="0"></iframe>
+  </head>
+  <body>
+    <!-- BGM on first tap -->
+    <div
+      id="bgm"
+      style="
+        position: fixed;
+        width: 1px;
+        height: 1px;
+        opacity: 0;
+        pointer-events: none;
+      "
+    >
+      <iframe
+        id="ytplayer"
+        src="https://www.youtube.com/embed/Cm0qaXi9THA?autoplay=1&loop=1&playlist=Cm0qaXi9THA&controls=0&modestbranding=1"
+        allow="autoplay"
+        frameborder="0"
+      ></iframe>
     </div>
 
     <div class="box">
-        <h1>Aaj Nahaana Hai?</h1>
-        <div class="tag">100% log bina nahaye nikal jaate hain</div>
+      <h1>Aaj Nahaana Hai?</h1>
+      <div class="tag">100% log bina nahaye nikal jaate hain</div>
 
-        <div id="question" class="question"></div>
-        <select id="ans"><option value="">Choose kar bhai</option></select>
-        <button id="next">Next</button>
-        <div id="verdict" class="verdict"></div>
+      <div class="progress"><div class="fill" id="fill"></div></div>
+      <div
+        style="margin-bottom: 15px; font-weight: bold; color: #e91e63"
+        id="progtext"
+      >
+        1 / 8
+      </div>
+
+      <div id="question" class="question"></div>
+      <select id="ans">
+        <option value="">Choose kar bhai</option>
+      </select>
+      <button id="next">Next</button>
+      <div id="verdict" class="verdict"></div>
     </div>
 
     <script>
-        // Start BGM on first user interaction (works on mobile + desktop)
-        let musicStarted = false;
-        function startBGM() {
-            if (musicStarted) return;
-            musicStarted = true;
-            const iframe = document.getElementById('ytplayer');
-            iframe.src = iframe.src; // forces play
-        }
-        document.body.addEventListener('click', startBGM, {once: true});
-        document.body.addEventListener('touchstart', startBGM, {once: true});
+      // BGM on first tap
+      let musicStarted = false;
+      function startBGM() {
+        if (musicStarted) return;
+        musicStarted = true;
+        document.getElementById("ytplayer").src += "";
+      }
+      document.body.addEventListener("click", startBGM, { once: true });
+      document.body.addEventListener("touchstart", startBGM, { once: true });
 
-        const questions = [
-            {q:"Ghar se bahar jaa raha hai aaj?", o:["Nahi yaar","Haan jaana padega"]},
-            {q:"Aaj kitne log tujhe dekhne wale hain?", o:["0","1-2","3+"]},
-            {q:"Abhi smell aa rahi hai kya?", o:["Bilkul nahi","Thodi si","Bohot zyada"]},
-            {q:"Kisi ne smell ki complaint ki?", o:["Koi nahi bola","Haan bola"]},
-            {q:"Sirf mummy-papa daant rahe hain?", o:["Haan bilkul","Nahi mujhe lag raha"]},
-            {q:"Nahaaega toh next 2 ghante mein farak padega?", o:["Bilkul nahi","Thoda sa"]},
-            {q:"Agar nahaya nahi toh dunia khatam?", o:["Nahi yaar","Shayad"]},
-            {q:"Sirf isliye soch raha kyuki log aise hi karte hain?", o:["Haan yaar","Nahi seriously"]}
+      const questions = [
+        {
+          q: "Ghar se bahar jaa raha hai aaj?",
+          o: ["Nahi yaar", "Haan jaana padega"],
+        },
+        { q: "Aaj kitne log tujhe dekhne wale hain?", o: ["0", "1-2", "3+"] },
+        {
+          q: "Abhi smell aa rahi hai kya?",
+          o: ["Bilkul nahi", "Thodi si", "Bohot zyada"],
+        },
+        {
+          q: "Kisi ne smell ki complaint ki?",
+          o: ["Koi nahi bola", "Haan bola"],
+        },
+        {
+          q: "Sirf mummy-papa daant rahe hain?",
+          o: ["Haan bilkul", "Nahi mujhe lag raha"],
+        },
+        {
+          q: "Nahaaega toh next 2 ghante mein farak padega?",
+          o: ["Bilkul nahi", "Thoda sa"],
+        },
+        { q: "Agar nahaya nahi toh dunia khatam?", o: ["Nahi yaar", "Shayad"] },
+        {
+          q: "Sirf isliye soch raha kyuki log aise hi karte hain?",
+          o: ["Haan yaar", "Nahi seriously"],
+        },
+      ];
+
+      const roasts = [
+        {
+          "Nahi yaar": [
+            "Ghar pe hai toh nahana allowed nahi hai bc.",
+            "Tu ghar ka furniture ban gaya.",
+            "Delivery wala bhi cancel kar de.",
+            "Tu ab room ka bhoot hai.",
+            "Bed ne tujhe adopt kar liya.",
+          ],
+        },
+        {
+          0: [
+            "0 log = 0 tension. Tu invisible hai.",
+            "Koi dekh hi nahi raha, nahana waste.",
+            "Tu aaj ghost mode mein hai.",
+            "Schrödinger ka cat ban gaya tu.",
+            "Tu free real estate hai.",
+          ],
+        },
+        {
+          "Bilkul nahi": [
+            "Tera nose bol raha tu fresh hai. Case closed.",
+            "Smell test pass. Nahana cancel.",
+            "Tu khud bol raha fresh hai. Science!",
+            "Tu already 10/10 hai bc.",
+            "Dogs would still lick your face.",
+          ],
+          "Thodi si": [
+            "Thodi si smell = personality hai bro.",
+            "Eau de Depression – limited edition.",
+            "Thodi si toh banta hai yaar.",
+            "Free cologne chal raha hai.",
+            "Street cred mil gaya.",
+          ],
+        },
+        {
+          "Koi nahi bola": [
+            "Sab khush hain. Tu king hai aaj.",
+            "Koi complain nahi = tera style hit hai.",
+            "Silence = approval. Jury ne vote de diya.",
+            "Even flies are vibing.",
+            "Tu officially approved hai.",
+          ],
+        },
+        {
+          "Haan bilkul": [
+            "Rebel ban ja. Nahana mat.",
+            "Mummy-papa ko bol new generation hai.",
+            "Ye tera villain arc hai.",
+            "Parents ka rule nahi maanna.",
+            "Time to start revolution.",
+          ],
+        },
+        {
+          "Bilkul nahi": [
+            "8 minute barbaad? Maggi kha le.",
+            "Time waste mat kar. Bed is calling.",
+            "2 ghante mein zero farak.",
+            "Water bill bacha raha tu hero.",
+            "ROI negative hai bc.",
+          ],
+        },
+        {
+          "Nahi yaar": [
+            "Duniya 2020 survive kar gayi. Tera smell kuch nahi.",
+            "Bhagwan ne bhi bola chhod de.",
+            "Apocalypse postponed. Tu hero.",
+            "Earth survived dinosaurs, will survive you.",
+          ],
+          Shayad: [
+            "50-50 chance? Risk le le, nahana mat.",
+            "Russian roulette with soap.",
+          ],
+        },
+        {
+          "Haan yaar": [
+            "Society ka rule tod de. Gremlin ban ja.",
+            "Tu sheep nahi hai. Welcome to gang.",
+            "Be the chaos the world needs.",
+            "Norms are for losers.",
+            "Tu ab anti-bath activist hai.",
+          ],
+        },
+      ];
+
+      let step = 0;
+      let answers = [];
+      const total = questions.length;
+
+      const ques = document.getElementById("question");
+      const sel = document.getElementById("ans");
+      const ver = document.getElementById("verdict");
+      const btn = document.getElementById("next");
+      const fill = document.getElementById("fill");
+      const progtext = document.getElementById("progtext");
+
+      function updateProgress() {
+        const percent = (step / total) * 100;
+        fill.style.width = percent + "%";
+        progtext.textContent = Math.min(step + 1, total) + " / " + total;
+      }
+
+      function rand(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function load() {
+        if (step >= total) {
+          showFinalVerdict();
+          return;
+        }
+        updateProgress();
+        ques.textContent = questions[step].q;
+        sel.innerHTML = '<option value="">Choose kar</option>';
+        questions[step].o.forEach((x) => {
+          let op = document.createElement("option");
+          op.value = x;
+          op.textContent = x;
+          sel.appendChild(op);
+        });
+      }
+
+      function stopAndRoast(msg) {
+        ver.innerHTML = `<strong>NAHANA CANCEL HO GAYA!</strong><br><br>
+                            ${msg}<br><br>
+                            <span style="color:#ff0;font-size:18px;">
+                            Tu poora quiz bhi nahi khel paya...<br>
+                            Sirf ${
+                              step + 1
+                            }/8 question mein hi tera nahana cancel ho gaya bc!
+                            </span><br><br>
+                            <big style="color:lime;">BATH = PERMANENTLY CANCELED</big><br><br>
+                            Ja bed pe wapas let ja, beautiful disaster.`;
+        ver.style.display = "block";
+        btn.style.display = "none";
+        sel.style.display = "none";
+        addRestart();
+      }
+
+      function addRestart() {
+        let r = document.createElement("button");
+        r.textContent = "PHIR SE TRY KAR CLEAN BOY";
+        r.className = "restart";
+        r.onclick = () => location.reload();
+        ver.appendChild(r);
+      }
+
+      btn.onclick = () => {
+        let choice = sel.value;
+        if (!choice) return alert("Arey bc, kuch toh choose kar!");
+
+        answers.push(choice);
+
+        const currentRoasts = roasts[step][choice];
+        const lazyTriggers = [
+          "Nahi yaar",
+          "0",
+          "Bilkul nahi",
+          "Thodi si",
+          "Koi nahi bola",
+          "Haan bilkul",
+          "Bilkul nahi",
+          "Nahi yaar",
+          "Haan yaar",
         ];
 
-        const roasts = [
-            { "Nahi yaar": ["Ghar pe hai toh nahana allowed nahi hai bc.","Tu ghar per hi hain din bhar. Tujhe kyu nahana hain?","Tu kahi nahi ja raha hain toh tujhe nahana kyu hain mc?"],
-              "Haan jaana padega": ["Thik hai hero, aage dekh lenge."] },
-            { "0": ["0 log = 0 tension. Tu invisible hai aaj. Matt naha","Koi dekh hi nahi raha, nahana waste hai."],
-              "1-2": ["Sirf 1-2 log? Woh toh bardaasht kar lenge.","Do log toh teri wajah se hasenge. Free entertainment.","1-2 log toh family jaise hain, smell se kya farak?"],
-              "3+": ["3+ log bhi survive kar lenge. Tu tension mat le.","Itne log bhi 2020 se guzar gaye hain."] },
-            { "Bilkul nahi": ["Tera nose bol raha tu fresh hai. Case closed.","Smell test pass. Nahana cancel.","Tu khud bol raha hai fresh hai. Science!","Tu already 10/10 hain iska matlab. So, matt naha bsdk"],
-              "Thodi si": ["Thodi si smell = personality hai bro.","Thodi si toh banta hai yaar.","That's just free cologne.","Thodi si smell = street cred."],
-              "Bohot zyada": ["Bohot zyada bhi chalega aage dekh lenge."] },
-            { "Koi nahi bola": ["Sab khush hain. Tu king hai aaj. Matt naaha","Koi complain nahi = sabko pasand tera style.","Silence = approval. Jury ne vote de diya.","Tu officially approved hai. Kyu nahana ab?"],
-              "Haan bola": ["Ek-do log bol diye toh kya? Minority report."] },
-            { "Haan bilkul": ["Rebel ban ja. Aaj nahana mat.","Mummy-papa ko bol new generation hai.","Parents ka rule nahi maanna.","Time to start a revolution. Tu matt naha, ignore kar mom dad ko!"],
-              "Nahi mujhe lag raha": ["Khud ko lag raha hai? Thik hai aage dekh lenge."] },
-            { "Bilkul nahi": ["8 minute barbaad? Bilkul nahi. Maggi kha le.","Time waste mat kar. Bed is calling.","2 ghante mein koi farak nahi = profit.","Water bill bacha raha hai tu, hero."],
-              "Thoda sa": ["Thoda sa farak? Not worth 8 minutes bro.","8 minute Maggi ban jaati usme."] },
-            { "Nahi yaar": ["Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi."],
-              "Shayad": ["50-50 chance? Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi. Risk le le, nahana mat."] },
-            { "Haan yaar": ["Society ka rule tod de. Gremlin ban ja.","Tu sheep nahi hai. Welcome to the gang.","Be the chaos the world needs.","Norms are for losers.","Tu ab official anti-bath activist hai."],
-              "Nahi seriously": ["Last chance tha bhai. Ab final verdict."] }
-        ];
-
-        let step = 0;
-        let answers = [];
-
-        const ques = document.getElementById('question');
-        const sel = document.getElementById('ans');
-        const ver = document.getElementById('verdict');
-        const btn = document.getElementById('next');
-
-        function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-        function load() {
-            if (step >= questions.length) { showFinalVerdict(); return; }
-            ques.textContent = questions[step].q;
-            sel.innerHTML = '<option value="">Choose kar</option>';
-            questions[step].o.forEach(x => {
-                let op = document.createElement('option');
-                op.value = x; op.textContent = x;
-                sel.appendChild(op);
-            });
+        if (currentRoasts && lazyTriggers.includes(choice)) {
+          stopAndRoast(rand(currentRoasts));
+          return;
         }
 
-        function stopAndRoast(msg) {
-            ver.innerHTML = `<strong>RUK JA BHAI!</strong><br><br>${msg}<br><br>
-                            <big>NAHANA 100% CANCEL</big><br><br>Ja bed pe wapas let ja hero.`;
-            ver.style.display = 'block';
-            btn.style.display = 'none';
-            sel.style.display = 'none';
-            addRestart();
-        }
-
-        function addRestart() {
-            let r = document.createElement('button');
-            r.textContent = "PHIR SE TRY KAR CLEAN BOY";
-            r.className = "restart";
-            r.onclick = () => location.reload();
-            ver.appendChild(r);
-        }
-
-        btn.onclick = () => {
-            let choice = sel.value;
-            if (!choice) return alert("Arey bc, kuch toh choose kar!");
-
-            answers.push(choice);
-
-            const currentRoasts = roasts[step][choice];
-            if (currentRoasts && currentRoasts.length > 0) {
-                const lazyAnswers = ["Nahi yaar","0","Bilkul nahi","Thodi si","Koi nahi bola","Haan bilkul","Bilkul nahi","Nahi yaar","Haan yaar"];
-                if (lazyAnswers.includes(choice)) {
-                    stopAndRoast(rand(currentRoasts));
-                    return;
-                }
-            }
-
-            step++;
-            load();
-        };
-
-        function showFinalVerdict() {
-            let breakdown = "";
-            answers.forEach((ans, i) => {
-                let reason = "";
-                if (i===0) reason = ans==="Nahi yaar" ? "ghar pe hai toh nahana allowed nahi" : "bahar jaa raha hai lekin baaki sab cancel kar denge";
-                if (i===1) reason = ans==="0" ? "koi dekh hi nahi raha" : "sirf thodi si public hai, survive kar lenge";
-                if (i===2) reason = ans==="Bilkul nahi" ? "khud bol raha fresh hai" : "thodi si smell toh personality hai";
-                if (i===3) reason = "koi complain nahi = sabko pasand hai";
-                if (i===4) reason = ans==="Haan bilkul" ? "sirf parents daant rahe, unko ignore kar" : "khud ko lag raha lekin baaki sab theek";
-                if (i===5) reason = "2 ghante mein zero farak";
-                if (i===6) reason = "Duniya 2020 survive kar gayi. Tera smell kuch bhi nahi. Risk le le, nahana mat.";
-                if (i===7) reason = "society ka pressure hai, rebel ban ja";
-                breakdown += `• "${ans}" → ${reason}<br>`;
-            });
-
-            ver.innerHTML = `<strong>Wah bhai poora quiz khel gaya!</strong><br><br>
-                            Teri har answer ka proof:<br><br>${breakdown}<br>
-                            <b>Final conclusion:</b><br>
-                            Bhai har answer chilaa rahi hai ki tujhe bilkul nahane ki zaroorat nahi. 
-                            Ghar pe hai ya bahar, koi dekh nahi raha ya thoda dekh raha toh bhi koi farak nahi, smell bhi theek hai, 
-                            koi complain nahi, mummy-papa ko ignore kar sakta hai, 2 ghante mein kuch nahi badlega aur dunia toh waise bhi chalti rahegi. 
-                            Society ka rule tod de aur bed + Maggi = life.<br><br>
-                            <big style="color:#0f0">AAJ BHI NAHANA CANCEL HO GAYA</big><br><br>
-                            Ab jaa, beautiful disaster.`;
-            ver.style.display = 'block';
-            btn.style.display = 'none';
-            sel.style.display = 'none';
-            addRestart();
-        }
-
+        step++;
         load();
+      };
+
+      function showFinalVerdict() {
+        updateProgress();
+        let breakdown = "";
+
+        ver.innerHTML = `<strong>Wah bhai poora 8/8 khel gaya!</strong><br><br>
+                            <b>Final conclusion:</b><br>
+                            Duniya 2020 survive kar gayi. Tera smell kuch nahi.Tere nahi nahane se kuch nahi hoga.<br>
+                            Paani bacha, matt naha.
+                            <big style="color:#0f0">AAJ BHI NAHANA 100% CANCEL</big><br><br>
+                            Ab jaa, beautiful disaster.`;
+        ver.style.display = "block";
+        btn.style.display = "none";
+        sel.style.display = "none";
+        addRestart();
+      }
+
+      load();
     </script>
-</body>
+  </body>
 </html>
