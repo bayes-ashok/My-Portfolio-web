@@ -1,465 +1,770 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Ashok Shah</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
 
-  <title>Ashok Shah</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="assets/img/ashok-icon.png" rel="icon" />
+    <link href="assets/img/ashok.png" rel="apple-touch-icon" />
 
-  <!-- Favicons -->
-  <link href="assets/img/ashok-icon.png" rel="icon">
-  <link href="assets/img/ashok.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link
+      href="assets/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+  </head>
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-</head>
+  <body>
+    <!-- ======= Mobile nav toggle button ======= -->
+    <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
 
-<body>
-
-  <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-
-  <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="d-flex flex-column">
-
-      <div class="profile">
-        <img src="assets/img/ashok.png" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html">Ashok Shah</a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="https://www.facebook.com/profile.php?id=100076767633820" class="facebook" target="_blank">
-            <i class="bx bxl-facebook"></i>
-          </a>
-          <a href="https://www.instagram.com/ashok_04_shah/" target="_blank" class="instagram">
-            <i class="bx bxl-instagram"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/ashok-shah-a500b9292/" target="_blank" class="linkedin">
-            <i class="bx bxl-linkedin"></i>
-          </a>
-          <a href="https://github.com/bayes-ashok" target="_blank" class="github">
-            <i class="bx bxl-github"></i>
-          </a>      
+    <!-- ======= Header ======= -->
+    <header id="header">
+      <div class="d-flex flex-column">
+        <div class="profile">
+          <img
+            src="assets/img/ashok.png"
+            alt=""
+            class="img-fluid rounded-circle"
+          />
+          <h1 class="text-light"><a href="index.html">Ashok Shah</a></h1>
+          <div class="social-links mt-3 text-center">
+            <a
+              href="https://www.facebook.com/profile.php?id=100076767633820"
+              class="facebook"
+              target="_blank"
+            >
+              <i class="bx bxl-facebook"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/ashok_04_shah/"
+              target="_blank"
+              class="instagram"
+            >
+              <i class="bx bxl-instagram"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ashok-shah-a500b9292/"
+              target="_blank"
+              class="linkedin"
+            >
+              <i class="bx bxl-linkedin"></i>
+            </a>
+            <a
+              href="https://github.com/bayes-ashok"
+              target="_blank"
+              class="github"
+            >
+              <i class="bx bxl-github"></i>
+            </a>
+          </div>
         </div>
+
+        <nav id="navbar" class="nav-menu navbar">
+          <ul>
+            <li>
+              <a href="#hero" class="nav-link scrollto active"
+                ><i class="bx bx-home"></i> <span>Home</span></a
+              >
+            </li>
+            <li>
+              <a href="#about" class="nav-link scrollto"
+                ><i class="bx bx-user"></i> <span>About</span></a
+              >
+            </li>
+            <li>
+              <a href="#projects" class="nav-link scrollto"
+                ><i class="bx bx-file-blank"></i> <span>My Projects</span></a
+              >
+            </li>
+            <li>
+              <a href="#timeline" class="nav-link scrollto"
+                ><i class="bx bx-book-content"></i> <span>Timeline</span></a
+              >
+            </li>
+            <li>
+              <a href="#honors" class="nav-link scrollto"
+                ><i class="bx bx-award"></i> <span>Honors</span></a
+              >
+            </li>
+
+            <li>
+              <a href="#contact" class="nav-link scrollto"
+                ><i class="bx bx-envelope"></i> <span>Contact</span></a
+              >
+            </li>
+          </ul>
+        </nav>
+        <!-- .nav-menu -->
       </div>
+    </header>
+    <!-- End Header -->
 
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-          <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
-          <li><a href="#projects" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>My Projects</span></a></li>
-          <li><a href="#timeline" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Timeline</span></a>
-          </li>
-          <li><a href="#writings" class="nav-link scrollto"><i class="bx bx-server"></i> <span>My Writings</span></a>
-          </li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
-    </div>
-  </header><!-- End Header -->
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="hero-container" data-aos="fade-in">
-      <h1>Ashok Shah</h1>
-      <p>I'm <span class="typed" data-typed-items=" Technophile, Sports fanatic, an Enthusiastic learner"></span></p>
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-        <div class="section-title">
-          <h2>About</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-8 mt-0 pt-0 content" data-aos="fade-left">
-            <div class="row">
-              <p>Hello, I'm Ashok, a computer science student with a passion for technology,
-                innovation, and a strong focus on learning data science and software engineering.
-                Welcome to my corner of the internet, where I showcase my journey through the world
-                of computing and the exciting projects I've undertaken along the way.</p>
-              <div class="col-lg-7">
-                <ul>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>26th Sept, 2003</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Kathmandu, Nepal</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>BSc.(Hons) Computing
-                      (Studying)</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>bayes.ashok@gmail.com</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-   <!-- ======= My Projects Section ======= -->
-    <section id="projects" class="projects section-bg">
-      <div class="container">
-        <div class="section-title">
-          <h2>My Projects</h2>
-          <p>Here are some of the projects I've worked on, showcasing my skills in web development, AI, and VR technologies. Click on any project to learn more.</p>
-        </div>
-
-        <div class="row" data-aos="fade-in">
-          <!-- Project 1 -->
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">College Tour using VR</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  The VR component provides an immersive college tour experience, allowing prospective students to explore the campus virtually enhancing the college tour experience.
-                </p>
-                <a href="https://youtu.be/YOuR2s0FaxU" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-        
-          <!-- Project 2 -->
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">Sajilocity</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  Sajilocity is a web application designed to enhance urban living through smart city solutions. The platform leverages AI technology to efficiently report and track potholes, ensuring quicker repairs and safer roads.
-                </p>
-                <a href="https://www.youtube.com/watch?v=PoUAV-ByEOY" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-        
-          <!-- Project 3 -->
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">Sajilotantra</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  Sajilotantra is a web application designed to simplify bureaucratic procedures. It includes step-by-step guidance for obtaining official documents, and an interactive community forum for discussions and support.
-                </p>
-                <a href="https://www.youtube.com/watch?v=_JLzDBx_JDI" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Add more projects as needed -->
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">Dietary and Health Feedback in VR</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  This project explores the integration of generative AI in virtual reality to provide personalized dietary and health feedback. By leveraging immersive VR environments and AI-driven analysis, users can receive tailored insights to improve their health and nutrition.
-                </p>
-                <a href="https://www.youtube.com/watch?v=CObDDBBCkg4" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">Adhyayan</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  This is an educational technology application designed to support students in classes 8 to 12 by providing them with high-quality study materials and tools. The app caters to a critical phase in a student’s academic journey, offering resources for effective self-learning, exam preparation, and global study opportunities.
-                </p>
-                <a href="https://www.youtube.com/watch?v=vkFjmIfOufc" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
-            <div class="card d-flex flex-column" style="width: 100%; height: 100%;">
-              <div class="card-body d-flex flex-column">
-                <h5 class="card-title text-center" style="font-weight: bold;">Surakshit</h5>
-                <p class="card-text flex-grow-1" style="text-align: justify;">
-                  Surakshit is a cutting-edge disaster management web-app. It provides real-time notifications about disasters, highlights safe points for users, and employs extensive data visualization to uncover patterns and identify disaster-prone areas.
-                </p>
-                <a href="https://www.youtube.com/watch?v=U9a_51aTyRw" target="_blank" class="btn btn-primary mt-auto">Explore Demo</a>
-              </div>
-            </div>
-          </div>
-          
-          
-          
-        </div>
-        <p style="text-align: justify;">
-          Also, due to confidentiality, I am unable to publicly showcase specific details/documentations of my  academic projects. However, those work spans a diverse range of areas, including AI, data analysis, and recommendation systems, all aimed at solving complex, real-world problems. From developing predictive models and implementing cutting-edge machine learning algorithms to crafting personalized recommendation engines, my projects demonstrate expertise in leveraging data to drive impactful results.
+    <!-- ======= Hero Section ======= -->
+    <section
+      id="hero"
+      class="d-flex flex-column justify-content-center align-items-center"
+    >
+      <div class="hero-container" data-aos="fade-in">
+        <h1>Ashok Shah</h1>
+        <p>
+          I'm
+          <span
+            class="typed"
+            data-typed-items=" Technophile, Sports fanatic, an Enthusiastic learner"
+          ></span>
         </p>
       </div>
-    </section><!-- End My Projects Section -->
+    </section>
+    <!-- End Hero -->
 
-
-    <!-- ======= Timeline Section ======= -->
-    <section id="timeline" class="resume">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Timeline</h2>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
-            <h3 class="resume-title">Summary</h3>
-            <div class="resume-item pb-0">
-              <h4>Ashok Shah</h4>
-              <p><em>As a computer science student, I possess a strong foundation in
-                  programming languages, web development, and data analysis. My dedication
-                  to academic excellence is complemented by hands-on experience in solving
-                  real-world problems and creating innovative solutions. Eager to apply my
-                  technical skills and contribute to cutting-edge projects in the world of
-                  technology.</em></p>
-            </div>
-
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>BSc. (Hons) Computing</h4>
-              <h5>2022 - present</h5>
-              <p><em>Softwarica College of IT and E-Commerce</em></p>
-              <p>
-                Currently, I am enrolled at Softwarica College, pursuing BSc. (Hons) Computing.
-                I am committed to maintaining my strong academic performance while actively participating
-                in extracurricular activities. I am a proud member of the IT and Editorial club of Softwarica College,
-                where I engage
-                in various technical and collaborative projects. This educational journey has not
-                only fostered academic growth but also enhanced my leadership and teamwork skills, making me a
-                well-rounded student.
-              </p>
-            </div>
-            <div class="resume-item">
-              <h4>Higher Secondary Education</h4>
-              <h5>2020 - 2022</h5>
-              <p><em>The New Summit Higher Secondary School, Maitidevi</em></p>
-              <p>
-                During my high school years, I excelled in the Science stream with a focus on the Physical Group. Beyond
-                academics,
-                I actively led and organized various college programs, honing my leadership and communication skills.
-                My efforts were recognized when I was appointed as the academic counselor, where I guided and mentored
-                fellow students in their educational pursuit.
-              </p>
-            </div>
-            <div class="resume-item">
-              <h4>Secondary Education</h4>
-              <h5>2014 - 2020</h5>
-              <p><em>The New Summit Higher Secondary School, Maitidevi</em></p>
-              <p>
-                Throughout my high school years, I consistently excelled academically, earning
-                top marks and being recognized for my outstanding performance. I proudly represented
-                my school in various academic competitions, including quizzes and essay competitions,
-                where I showcased my knowledge and critical thinking skills. Additionally, I was an
-                active member of the school's basketball team, achieving remarkable success as the
-                1st runner-up in the regional PABSON basketball competition in 2076. Furthermore,
-                I had the privilege of leading my school to victory as the 14th Annapurna Valley
-                Wide Quiz winner. These experiences instilled in me a passion for both academic
-                and extracurricular pursuits, shaping me into a well-rounded individual.
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="resume-title">Experience</h3>
-            <div class="resume-item">
-              <h4>Organizer</h4>
-              <h5>Seasonal Event</h5>
-              <p><em>Udhyam Hackathon</em></p>
-              As an organizer for the Udhyam Hackathon, I had the incredible opportunity to spearhead a dynamic and
-              innovation-driven event.
-            </div>
-            <div class="resume-item">
-              <h4>Senior Executive</h4>
-              <h5>2022 - present</h5>
-              <p><em>Ask Mattrab</em></p>
-              As a Senior Executive at Ask Mattrav, I held a pivotal leadership position within the organization.
-              In my role as a Senior Executive at Ask Mattrab, I had the unique opportunity to represent the
-              organization at the prestigious ICT Award 2022. This significant achievement marked a notable
-              milestone for Ask Mattrab, as we were recognized as a finalist in this highly competitive competition
-              for consecutive years.It highlighted the collective efforts of the entire Ask Mattrab team, which
-              contributed to our success and recognition as a finalist in this esteemed event.
-            </div>
-
-            <div class="resume-item">
-              <h4>Secretary of Global Community</h4>
-              <h5>2021 - 2022</h5>
-              <p><em>Ask Mattrab</em></p>
-              During my tenure as a secretary for the Global Community at Ask Mattrab, I had the privilege
-              of being part of a dynamic team dedicated to the advancement of e-learning. In this role, my
-              primary objective was to provide essential support to ensure the smooth functioning of our
-              division within the global community and contribute to the overarching mission of Ask Mattrab.
-            </div>
-
-            <div class="resume-item">
-              <h4>Math and CS note Creator</h4>
-              <h5>2020 - 2021</h5>
-              <p><em>Ask Mattrab</em></p>
-              I proudly served as a Math and Computer Science Note Creator at Ask Mattrab. In this role,
-              I crafted comprehensive educational materials to simplify complex concepts for students. My
-              dedication led to the honor of being named the <b>Top Creator of the Year</b>, recognizing my commitment
-              to excellence.
-            </div>
-
-
-            <div class="resume-item">
-              <h4>Academic Counselor</h4>
-              <h5>Apr 2022 - Jul 2022</h5>
-              <p><em>The New Summit Higher Secondary School, Maitidevi</em></p>
-              <p>
-                As an Academic Counselor at The New Summit Higher Secondary School, I played a crucial
-                role in guiding students on their educational paths. My responsibilities included helping
-                students choose courses, plan their academic journeys, and navigate college and career options.
-                I also provided academic support, encouraged personal development, and facilitated communication
-                between students and parents.
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End timeline Section -->
-
-    <!-- ======= My writing Section ======= -->
-    <section id="writings" class="portfolio section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>My Writings</h2>
-          <p>
-            Discover my captivating stories and insightful thoughts. I love writing, and
-            I'm excited to share my diverse topics and emotions with you.
-          </p>
-        </div>
-
+    <main id="main">
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
         <div class="container">
-          <div class="row" data-aos="fade-in">
-            <div class="col-md-4 mt-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <b>
-                      When Years of Academic Success Became a Tale of Failure!!
-                    </b>
-                  </h5>
-                  <p class="card-text">This is a compelling exploration of the challenges and sacrifices that often
-                    accompany a relentless pursuit of academic success.</p>
-                  <a href="https://www.askmattrab.com/stories/5747-story-of-ashok-shah"
-                    class="btn btn-primary stretched-link" target="_blank">Read Story</a>
-                </div>
-              </div>
+          <div class="section-title">
+            <h2>About</h2>
+          </div>
+          <div class="row">
+            <div class="col-lg-4" data-aos="fade-right">
+              <img src="assets/img/profile.jpg" class="img-fluid" alt="" />
             </div>
-            <div class="col-md-4 mt-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <b>
-                      My Favourite Actors
-                    </b>
-                  </h5>
-                  <p class="card-text">The story beautifully captures the essence of parental love and sacrifice.
-                    It's a heartfelt tribute to the incredible acting skills our parents display every day,
-                    hiding their struggles and exhaustion to ensure our happiness.</p>
-                  <a href="https://www.askmattrab.com/stories/36-story-of-ashok-shah"
-                    class="btn btn-primary stretched-link" target="_blank">Read Story</a>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 mt-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <b>
-                      My Mattrab Notes
-                    </b>
-                  </h5>
-                  <p class="card-text">Discover my incredible journey on Mattrab, the e-learning platform where I rose
-                    to the
-                    top as a creator of high-quality mathematics and computer science notes. Feel free to check out my
-                    notes on Mattrab!</p>
-                  <a href="https://www.askmattrab.com/users/975-ashok-shah" class="btn btn-primary stretched-link"
-                    target="_blank">Check my Notes</a>
+            <div class="col-lg-8 mt-0 pt-0 content" data-aos="fade-left">
+              <div class="row">
+                <p>
+                  Hello, I'm Ashok, a computer science student with a passion
+                  for technology, innovation, and a strong focus on learning
+                  data science and software engineering. Welcome to my corner of
+                  the internet, where I showcase my journey through the world of
+                  computing and the exciting projects I've undertaken along the
+                  way.
+                </p>
+                <div class="col-lg-7">
+                  <ul>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Birthday:</strong> <span>26th Sept, 2003</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-chevron-right"></i> <strong>City:</strong>
+                      <span>Kathmandu, Nepal</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Degree:</strong>
+                      <span>BSc.(Hons) Computing (Studying)</span>
+                    </li>
+                    <li>
+                      <i class="bi bi-chevron-right"></i>
+                      <strong>Email:</strong> <span>bayes.ashok@gmail.com</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+      <!-- End About Section -->
 
+      <!-- ======= My Projects Section ======= -->
+      <section id="projects" class="projects section-bg">
+        <div class="container">
+          <div class="section-title">
+            <h2>My Projects</h2>
+            <p>
+              Here are some of the projects I've worked on, showcasing my skills
+              in web development, AI, and VR technologies. Click on any project
+              to learn more.
+            </p>
+          </div>
 
-    </section><!-- End writings Section -->
+          <div class="row" data-aos="fade-in">
+            <!-- Project 1 -->
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    College Tour using VR
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    The VR component provides an immersive college tour
+                    experience, allowing prospective students to explore the
+                    campus virtually enhancing the college tour experience.
+                  </p>
+                  <a
+                    href="https://youtu.be/YOuR2s0FaxU"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
+            <!-- Project 2 -->
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    Sajilocity
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    Sajilocity is a web application designed to enhance urban
+                    living through smart city solutions. The platform leverages
+                    AI technology to efficiently report and track potholes,
+                    ensuring quicker repairs and safer roads.
+                  </p>
+                  <a
+                    href="https://www.youtube.com/watch?v=PoUAV-ByEOY"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
 
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>
-            Feel free to reach out to me. I would love to hear from you!!
+            <!-- Project 3 -->
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    Sajilotantra
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    Sajilotantra is a web application designed to simplify
+                    bureaucratic procedures. It includes step-by-step guidance
+                    for obtaining official documents, and an interactive
+                    community forum for discussions and support.
+                  </p>
+                  <a
+                    href="https://www.youtube.com/watch?v=_JLzDBx_JDI"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Add more projects as needed -->
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    Dietary and Health Feedback in VR
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    This project explores the integration of generative AI in
+                    virtual reality to provide personalized dietary and health
+                    feedback. By leveraging immersive VR environments and
+                    AI-driven analysis, users can receive tailored insights to
+                    improve their health and nutrition.
+                  </p>
+                  <a
+                    href="https://www.youtube.com/watch?v=CObDDBBCkg4"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    Adhyayan
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    This is an educational technology application designed to
+                    support students in classes 8 to 12 by providing them with
+                    high-quality study materials and tools. The app caters to a
+                    critical phase in a student’s academic journey, offering
+                    resources for effective self-learning, exam preparation, and
+                    global study opportunities.
+                  </p>
+                  <a
+                    href="https://www.youtube.com/watch?v=vkFjmIfOufc"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
+              <div
+                class="card d-flex flex-column"
+                style="width: 100%; height: 100%"
+              >
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title text-center" style="font-weight: bold">
+                    Surakshit
+                  </h5>
+                  <p class="card-text flex-grow-1" style="text-align: justify">
+                    Surakshit is a cutting-edge disaster management web-app. It
+                    provides real-time notifications about disasters, highlights
+                    safe points for users, and employs extensive data
+                    visualization to uncover patterns and identify
+                    disaster-prone areas.
+                  </p>
+                  <a
+                    href="https://www.youtube.com/watch?v=U9a_51aTyRw"
+                    target="_blank"
+                    class="btn btn-primary mt-auto"
+                    >Explore Demo</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style="text-align: justify">
+            Also, due to confidentiality, I am unable to publicly showcase
+            specific details/documentations of my academic projects. However,
+            those work spans a diverse range of areas, including AI, data
+            analysis, and recommendation systems, all aimed at solving complex,
+            real-world problems. From developing predictive models and
+            implementing cutting-edge machine learning algorithms to crafting
+            personalized recommendation engines, my projects demonstrate
+            expertise in leveraging data to drive impactful results.
           </p>
         </div>
+      </section>
+      <!-- End My Projects Section -->
 
+      <!-- ======= Timeline Section ======= -->
+      <section id="timeline" class="resume">
+        <div class="container">
+          <div class="section-title">
+            <h2>Timeline</h2>
+          </div>
 
-        <div class="row" data-aos="fade-in">
-          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch mx-auto">
-            <div class="card border shadow p-4">
-              <form action="https://formspree.io/f/xoqoppve" method="POST">
-                <div class="row">
-                  <div class="form-group col-md-6 py-2">
-                    <input type="text" name="name" class="form-control" placeholder="Enter your Name...">
-                  </div>
-                  <div class="form-group col-md-6 py-2">
-                    <input type="email" name="email" class="form-control" placeholder="Enter your Email...">
-                  </div>
-                  <div class="form-group col-md-12 py-3">
-                    <textarea class="form-control" name="message" rows="5" placeholder="Enter your Message..."></textarea>
-                  </div>
-                  <div class="form-group col-md-12 mb-0">
-                    <button type="submit" class="btn btn-primary btn-block" id="full-width-button">Submit</button>
-                  </div>  
-                </div>
-              </form>
+          <div class="row">
+            <div class="col-lg-6" data-aos="fade-up">
+              <h3 class="resume-title">Summary</h3>
+              <div class="resume-item pb-0">
+                <h4>Ashok Shah</h4>
+                <p>
+                  <em
+                    >As a computer science student, I possess a strong
+                    foundation in programming languages, web development, and
+                    data analysis. My dedication to academic excellence is
+                    complemented by hands-on experience in solving real-world
+                    problems and creating innovative solutions. Eager to apply
+                    my technical skills and contribute to cutting-edge projects
+                    in the world of technology.</em
+                  >
+                </p>
+              </div>
+
+              <h3 class="resume-title">Education</h3>
+              <div class="resume-item">
+                <h4>BSc. (Hons) Computing</h4>
+                <h5>2022 - 2025</h5>
+                <p><em>Softwarica College of IT and E-Commerce</em></p>
+
+                <p>
+                  Completed BSc. (Hons) Computing with First Class Honors.
+                  Graduated as the
+                  <b>Batch Topper</b> and received the prestigious
+                  <b>Valedictorian Award</b>. Served as Secretary of the IT and
+                  Editorial Club, organizing technical events and leading
+                  multiple student projects. Represented the college in various
+                  hackathons, expos, and exhibitions, achieving wins and
+                  showcasing innovative projects.
+                </p>
+              </div>
+              <div class="resume-item">
+                <h4>Higher Secondary Education</h4>
+                <h5>2020 - 2022</h5>
+                <p>
+                  <em>The New Summit Higher Secondary School, Maitidevi</em>
+                </p>
+                <p>
+                  During my high school years, I excelled in the Science stream
+                  with a focus on the Physical Group. Beyond academics, I
+                  actively led and organized various college programs, honing my
+                  leadership and communication skills. My efforts were
+                  recognized when I was appointed as the academic counselor,
+                  where I guided and mentored fellow students in their
+                  educational pursuit.
+                </p>
+              </div>
+              <div class="resume-item">
+                <h4>Secondary Education</h4>
+                <h5>2014 - 2020</h5>
+                <p>
+                  <em>The New Summit Higher Secondary School, Maitidevi</em>
+                </p>
+                <p>
+                  Throughout my high school years, I consistently excelled
+                  academically, earning top marks and being recognized for my
+                  outstanding performance. I proudly represented my school in
+                  various academic competitions, including quizzes and essay
+                  competitions, where I showcased my knowledge and critical
+                  thinking skills. Additionally, I was an active member of the
+                  school's basketball team, achieving remarkable success as the
+                  1st runner-up in the regional PABSON basketball competition in
+                  2076. Furthermore, I had the privilege of leading my school to
+                  victory as the 14th Annapurna Valley Wide Quiz winner. These
+                  experiences instilled in me a passion for both academic and
+                  extracurricular pursuits, shaping me into a well-rounded
+                  individual.
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+              <h3 class="resume-title">Experience</h3>
+              <div class="resume-item">
+                <h4>
+                  Senior Executive | Secretary, Global Community | Math & CS
+                  Note Creator
+                </h4>
+                <h5>2020 - Present</h5>
+                <p><em>Ask Mattrab</em></p>
+                <p>
+                  Started at Ask Mattrab as a Math and Computer Science Note
+                  Creator, developing educational materials that simplified
+                  complex concepts for students and earning recognition as the
+                  <b>Top Creator of the Year</b>. Later served as Secretary of
+                  the Global Community, supporting the growth of the e-learning
+                  initiative and helping ensure smooth coordination within the
+                  division. Currently serving as a Senior Executive,
+                  contributing to leadership, organizational development, and
+                  representing the organization at national events such as the
+                  <b>ICT Award 2022</b>, where Ask Mattrab was recognized as a
+                  finalist in this highly competitive competition for
+                  consecutive years.
+                </p>
+              </div>
+              <div class="resume-item">
+                <h4>VR Project Mentor</h4>
+                <h5>May 2025 - July 2025</h5>
+                <p><em>Softwarica College of IT and E-commerce</em></p>
+                <p>
+                  Mentored junior students in the development of Virtual Reality
+                  (VR) projects by providing technical guidance and project
+                  supervision. Assisted teams working on projects such as VR
+                  Counsellor, VR Chemistry Lab, and other immersive
+                  applications. Supported students in problem-solving, project
+                  planning, and implementation to help them successfully
+                  complete their VR-based academic projects.
+                </p>
+              </div>
+              <div class="resume-item">
+                <h4>Organizer</h4>
+                <h5>Seasonal Event</h5>
+                <p><em>TEDx Softwarica</em></p>
+                <p></p>
+                <p>
+                  Organized and supported the successful execution of TEDx
+                  Softwarica in collaboration with the event team.
+                  Responsibilities included assisting in event logistics,
+                  managing attendee registrations and data records, organizing
+                  event-related data, maintaining participant engagement, and
+                  ensuring smooth communication between different teams.
+                </p>
+              </div>
+              <div class="resume-item">
+                <h4>Organizer</h4>
+                <h5>Seasonal Event</h5>
+                <p><em>Udhyam Hackathon</em></p>
+                As an organizer for the Udhyam Hackathon, I had the incredible
+                opportunity to spearhead a dynamic and innovation-driven event.
+              </div>
+
+              <div class="resume-item">
+                <h4>Academic Counselor</h4>
+                <h5>Apr 2022 - Jul 2022</h5>
+                <p>
+                  <em>The New Summit Higher Secondary School, Maitidevi</em>
+                </p>
+                <p>
+                  As an Academic Counselor at The New Summit Higher Secondary
+                  School, I played a crucial role in guiding students on their
+                  educational paths. My responsibilities included helping
+                  students choose courses, plan their academic journeys, and
+                  navigate college and career options. I also provided academic
+                  support, encouraged personal development, and facilitated
+                  communication between students and parents.
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        
+      </section>
+      <!-- End timeline Section -->
 
-      </div>
-    </section><!-- End Contact Section -->
+      <!-- ======= Honors & Achievements Section ======= -->
+      <section id="honors" class="honors section-bg">
+        <div class="container">
+          <div class="section-title">
+            <h2>Honors &amp; Achievements</h2>
+          </div>
 
-  </main><!-- End #main -->
+          <div class="honors-timeline" data-aos="fade-up">
+            <article class="honors-item">
+              <div class="honors-marker">
+                <i class="bi bi-mortarboard"></i>
+              </div>
+              <div class="honors-card">
+                <div class="honors-header">
+                  <h3>Batch Topper &amp; Valedictorian</h3>
+                  <span class="honors-badge badge-topper">Batch Topper</span>
+                </div>
+                <p class="honors-role">Valedictory Address</p>
+                <p class="honors-desc" style="text-align: justify">
+                  Graduated with <strong>First Class Honors</strong> as the
+                  <strong>Batch Topper</strong>, consistently achieving top
+                  grades across all subjects. Recognized for exceptional
+                  dedication, academic rigor, and leadership in coursework
+                  establishing a record of excellence throughout the program.
+                </p>
+                <a
+                  href="https://youtu.be/KuWgFW2NBkU"
+                  target="_blank"
+                  class="honors-link"
+                  >Watch My Valedictorian Speech</a
+                >
+              </div>
+            </article>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+            <article class="honors-item">
+              <div class="honors-marker">
+                <i class="bi bi-trophy"></i>
+              </div>
+              <div class="honors-card">
+                <div class="honors-header">
+                  <h3>Recursion Hacks</h3>
+                  <span class="honors-badge badge-first">First Place</span>
+                </div>
+                <p class="honors-role">
+                  Cosmos College of Management and Technology
+                </p>
+                <p class="honors-desc" style="text-align: justify">
+                  Won <strong>First Place</strong> at the hackathon focused on
+                  smart city solutions with the project
+                  <strong>Sajilocity</strong>, a web application designed to
+                  enhance urban living. The platform leverages AI technology to
+                  efficiently report and track potholes for quicker repairs and
+                  safer roads, alongside additional features that improve city
+                  infrastructure and citizen engagement.
+                </p>
+                <a
+                  href="https://www.youtube.com/watch?v=PoUAV-ByEOY"
+                  target="_blank"
+                  class="honors-link"
+                  >Check the Project Demo</a
+                >
+              </div>
+            </article>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+            <article class="honors-item">
+              <div class="honors-marker">
+                <i class="bi bi-book-half"></i>
+              </div>
+              <div class="honors-card">
+                <div class="honors-header">
+                  <h3>Annapurna Friendship Quiz Contest</h3>
+                  <span class="honors-badge badge-first">First Place</span>
+                </div>
+                <p class="honors-role">14th Kathmandu Valleywide Edition</p>
+                <p class="honors-desc" style="text-align: justify">
+                  Secured <strong>first place</strong> in the 14th Kathmandu
+                  Valleywide Annapurna Friendship Quiz Contest, demonstrating
+                  strong general knowledge, quick thinking, and competitive
+                  excellence among participants across the region.
+                </p>
+              </div>
+            </article>
 
-</body>
+            <article class="honors-item">
+              <div class="honors-marker">
+                <i class="bi bi-lightbulb"></i>
+              </div>
+              <div class="honors-card">
+                <div class="honors-header">
+                  <h3>IOA Student Shark Tank 2025</h3>
+                  <span class="honors-badge badge-runner">Runner-Up</span>
+                </div>
+                <p class="honors-role">Pitch Competition</p>
+                <p class="honors-desc" style="text-align: justify">
+                  Participated in the
+                  <strong>Spring 2025 IOA Student Shark Tank</strong>, an
+                  inspiring initiative by the Institute of Analytics that
+                  encourages innovative solutions using data and digital tools
+                  to tackle global challenges. Developed
+                  <strong>LearnScape</strong>, an AI-powered VR platform
+                  delivering immersive and personalized education to students in
+                  remote and underserved areas, earning the
+                  <strong>Runner-Up</strong> position for impactful innovation
+                  and presentation.
+                </p>
+                <a
+                  href="https://youtu.be/erSzWEaITew"
+                  target="_blank"
+                  class="honors-link"
+                  >Watch the LearnScape Pitch</a
+                >
+              </div>
+            </article>
 
+            <article class="honors-item">
+              <div class="honors-marker">
+                <i class="bi bi-stars"></i>
+              </div>
+              <div class="honors-card">
+                <div class="honors-header">
+                  <h3>AskMattrab</h3>
+                  <span class="honors-badge badge-creator"
+                    >Top Creator of the Year</span
+                  >
+                </div>
+                <p class="honors-role">Community Recognition</p>
+                <p class="honors-desc" style="text-align: justify">
+                  Started as a Math and Computer Science Note Creator and
+                  recognized as <strong>Top Creator of the Year</strong>
+                  for producing high-impact educational content. Contributed to
+                  community growth, organizational development, and represented
+                  the platform at national events, including the ICT Award 2022.
+                </p>
+                <a
+                  href="https://www.askmattrab.com/users/975-ashok-shah"
+                  target="_blank"
+                  class="honors-link"
+                  >See my Mattrab Profile</a
+                >
+              </div>
+            </article>
+          </div>
+
+          <p class="honors-note" style="text-align: justify">
+            Multiple inter- and intra-school awards in quizzes, basketball,
+            essay writing, and other academic competitions. Actively
+            participated in numerous IOA, DataCamp, and DataQuest webinars and
+            events, and contributed as part of organizing committees for notable
+            coding competitions, webinars, bootcamps, CTFs, hackathons, and TEDx
+            events.
+          </p>
+        </div>
+      </section>
+      <!-- End Honors & Achievements Section -->
+
+      <!-- ======= Contact Section ======= -->
+      <section id="contact" class="contact">
+        <div class="container">
+          <div class="section-title">
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me. I would love to hear from you!!</p>
+          </div>
+
+          <div class="row" data-aos="fade-in">
+            <div
+              class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch mx-auto"
+            >
+              <div class="card border shadow p-4">
+                <form action="https://formspree.io/f/xoqoppve" method="POST">
+                  <div class="row">
+                    <div class="form-group col-md-6 py-2">
+                      <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Enter your Name..."
+                      />
+                    </div>
+                    <div class="form-group col-md-6 py-2">
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Enter your Email..."
+                      />
+                    </div>
+                    <div class="form-group col-md-12 py-3">
+                      <textarea
+                        class="form-control"
+                        name="message"
+                        rows="5"
+                        placeholder="Enter your Message..."
+                      ></textarea>
+                    </div>
+                    <div class="form-group col-md-12 mb-0">
+                      <button
+                        type="submit"
+                        class="btn btn-primary btn-block"
+                        id="full-width-button"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End Contact Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/typed.js/typed.umd.js"></script>
+    <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>

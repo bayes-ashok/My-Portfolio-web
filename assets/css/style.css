@@ -519,6 +519,216 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Honors & Achievements
+--------------------------------------------------------------*/
+.honors {
+  position: relative;
+}
+
+.honors .section-title p {
+  max-width: 680px;
+}
+
+.honors-timeline {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  padding-left: 0px; 
+}
+
+.honors-timeline::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: linear-gradient(180deg, #c7d6ec 0%, #e7effa 100%);
+}
+
+.honors-item {
+  display: grid;
+  grid-template-columns: 36px 1fr; 
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.honors-marker {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #1f5297;
+  color: #1f5297;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(23, 59, 108, 0.12);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.honors-marker i {
+  font-size: 16px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .honors-item {
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+  }
+
+  .honors-marker {
+    width: 28px;
+    height: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .honors-marker i {
+    font-size: 13px;
+  }
+
+  .honors-timeline::before {
+    left: 12px; 
+  }
+}
+
+.honors-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+  border: 1px solid #e3eaf6;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 10px 28px rgba(15, 40, 72, 0.08);
+}
+
+.honors-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.honors-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: #0f2544;
+}
+
+.honors-role {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2b4c76;
+  margin-bottom: 8px;
+}
+
+.honors-desc {
+  margin-bottom: 14px;
+  color: #4a5f7a;
+}
+
+.honors-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.badge-topper {
+  background: #e6f4ff;
+  color: #0f5f9b;
+  border-color: #bcdcff;
+}
+
+.badge-runner {
+  background: #fff4e4;
+  color: #d6770b;
+  border-color: #ffd6a8;
+}
+
+.badge-first {
+  background: #fffbe9;
+  color: #256c24;
+  border-color: #c6f3b2;
+}
+
+.badge-creator {
+  background: #f1ecff;
+  color: #4b2f9b;
+  border-color: #d8ccff;
+}
+
+.honors-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #4a90e2, #357ABD);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.honors-link:hover {
+  background: linear-gradient(135deg, #357ABD, #2a5f9e);
+  transform: translateY(-2px);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.honors-note {
+  margin-top: 22px;
+  color: #344a67;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .honors-timeline {
+    padding-left: 0;
+  }
+
+  .honors-timeline::before {
+    left: 14px;
+  }
+
+  .honors-item {
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+  }
+
+  .honors-marker {
+    width: 28px;
+    height: 28px;
+  }
+
+  .honors-marker i {
+    font-size: 13px;
+  }
+
+  .honors-card {
+    padding: 16px;
+  }
+
+  .honors-header {
+    align-items: flex-start;
+  }
+}
+
+/*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
 .portfolio .portfolio-item {
