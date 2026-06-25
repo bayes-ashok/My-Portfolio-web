@@ -157,14 +157,7 @@
             z-index: 10;
         }
 
-        /* ── HIDDEN AUDIO ── */
-        audio {
-            display: none !important;
-            position: absolute;
-            width: 0;
-            height: 0;
-            pointer-events: none;
-        }
+
     </style>
 </head>
 <body>
@@ -183,8 +176,6 @@
         <div id="flash-overlay"></div>
     </div>
 
-    <!-- Hidden audio instances (populated by JS) -->
-    <div id="audio-container" aria-hidden="true"></div>
 
     <script>
         const landing        = document.getElementById('landing');
@@ -193,17 +184,99 @@
         const canvas         = document.getElementById('canvas');
         const ctx            = canvas.getContext('2d');
         const flashOverlay   = document.getElementById('flash-overlay');
-        const audioContainer = document.getElementById('audio-container');
 
-        let particles    = [];
-        let time         = 0;
-        let audioNodes   = [];   // { el, offset, ctx, src, gainNode }
-        let started      = false;
+        let particles       = [];
+        let time            = 0;
+        let started         = false;
 
-        /* ── AUDIO CONFIG ── */
-        const AUDIO_SRC     = 'music.mp3';
-        const OFFSETS       = [0, 1, 2, 3, 4];   // seconds each instance starts at
+        /* ─────────────────────────────────────────────────────────────────────
+         *  WEB AUDIO ENGINE
+         *
+         *  Why Web Audio instead of <audio> elements:
+         *  - A single fetch() loads the file once into an ArrayBuffer
+         *  - decodeAudioData() decodes it into an AudioBuffer in memory
+         *  - AudioBufferSourceNode.start() is 100% synchronous — no Promise,
+         *    no readyState check, no canplay event — so it never breaks the
+         *    mobile gesture token
+         *  - offset is passed directly to .start(ctx, when, offset) — no seek
+         *  - Works identically on iOS Safari 14+, Android Chrome, desktop
+         * ───────────────────────────────────────────────────────────────────── */
+        const AUDIO_SRC      = 'music.mp3';
+        const OFFSETS        = [0, 1, 2, 3, 4];   // per-instance start offsets in seconds
         const INSTANCE_COUNT = OFFSETS.length;
+
+        let audioCtx         = null;   // created at page load (suspended on mobile until gesture)
+        let audioBuffer      = null;   // decoded PCM data, ready to play
+        let fetchError       = false;
+
+        /* Create AudioContext immediately — suspended on mobile, running on desktop.
+           Mobile browsers allow creation before gesture; they just won't produce sound
+           until .resume() is called inside a gesture. */
+        function initAudioContext() {
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.warn('Web Audio not supported:', e);
+            }
+        }
+        initAudioContext();
+
+        /* Fetch + decode in background immediately — no gesture needed for network */
+        function preloadAudio() {
+            if (!audioCtx) return;
+            fetch(AUDIO_SRC)
+                .then(r => {
+                    if (!r.ok) throw new Error('HTTP ' + r.status);
+                    return r.arrayBuffer();
+                })
+                .then(buf => audioCtx.decodeAudioData(buf))
+                .then(decoded => {
+                    audioBuffer = decoded;
+                    console.log('Audio buffered, duration:', decoded.duration.toFixed(2) + 's');
+                })
+                .catch(e => {
+                    fetchError = true;
+                    console.warn('Audio preload failed:', e);
+                });
+        }
+        preloadAudio();
+
+        /* Called synchronously inside the gesture handler.
+           AudioContext.resume() + source.start() are both synchronous operations
+           that mobile browsers honour within a user gesture. */
+        function startAudioSync() {
+            if (!audioCtx) return;
+
+            // Resume the context (required on mobile — this IS synchronous in terms of
+            // gesture-token consumption even though it returns a Promise internally)
+            audioCtx.resume();
+
+            if (!audioBuffer) {
+                // File not decoded yet (very slow connection) — play silence, nothing to do
+                console.warn('Audio buffer not ready at gesture time');
+                return;
+            }
+
+            const duration = audioBuffer.duration;
+
+            for (let i = 0; i < INSTANCE_COUNT; i++) {
+                const offset = OFFSETS[i] % duration;  // wrap if offset > duration
+
+                // Create a fresh source node (they are single-use by spec)
+                const source      = audioCtx.createBufferSource();
+                source.buffer     = audioBuffer;
+                source.loop       = true;
+                source.loopStart  = 0;
+                source.loopEnd    = duration;
+
+                // Connect directly to output
+                source.connect(audioCtx.destination);
+
+                // start(when, offset) — starts immediately at the given offset into the buffer
+                // This is fully synchronous — no Promise, no event, no waiting
+                source.start(0, offset);
+            }
+        }
 
         /* ── Canvas sizing ── */
         function resizeCanvas() {
@@ -217,13 +290,13 @@
         class Particle {
             constructor() { this.reset(true); }
             reset(scatter = false) {
-                this.x      = scatter ? Math.random() * canvas.width  : canvas.width  / 2 + (Math.random() - 0.5) * 300;
-                this.y      = scatter ? Math.random() * canvas.height * 0.7 : canvas.height / 2 + (Math.random() - 0.5) * 300;
-                this.size   = Math.random() * 8 + 2;
-                this.speedX = Math.random() * 7 - 3.5;
-                this.speedY = Math.random() * 7 - 3.5;
-                this.hue    = Math.random() * 360;
-                this.life   = 160 + Math.random() * 60;
+                this.x       = scatter ? Math.random() * canvas.width  : canvas.width  / 2 + (Math.random() - 0.5) * 300;
+                this.y       = scatter ? Math.random() * canvas.height * 0.7 : canvas.height / 2 + (Math.random() - 0.5) * 300;
+                this.size    = Math.random() * 8 + 2;
+                this.speedX  = Math.random() * 7 - 3.5;
+                this.speedY  = Math.random() * 7 - 3.5;
+                this.hue     = Math.random() * 360;
+                this.life    = 160 + Math.random() * 60;
                 this.maxLife = this.life;
             }
             update() {
@@ -234,10 +307,10 @@
             }
             draw() {
                 ctx.save();
-                ctx.globalAlpha   = Math.max(0, this.life / this.maxLife);
-                ctx.fillStyle     = `hsl(${(this.hue + time * 5) % 360}, 100%, 95%)`;
-                ctx.shadowBlur    = 35;
-                ctx.shadowColor   = `hsl(${this.hue}, 100%, 70%)`;
+                ctx.globalAlpha = Math.max(0, this.life / this.maxLife);
+                ctx.fillStyle   = `hsl(${(this.hue + time * 5) % 360}, 100%, 95%)`;
+                ctx.shadowBlur  = 35;
+                ctx.shadowColor = `hsl(${this.hue}, 100%, 70%)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -251,9 +324,8 @@
         }
 
         /* ── Strobe / flicker engine ── */
-        let strobeIntensity = 0;      // 0-1, ramps up over time
-        let lastFlash       = 0;
-        let flashInterval   = 90;     // ms between flash bursts, shrinks over time
+        let strobeIntensity = 0;
+        let flashInterval   = 90;
 
         function triggerDOMFlash() {
             const brightness = 0.3 + strobeIntensity * 0.7;
@@ -264,50 +336,42 @@
         function scheduleStrobe() {
             if (!started) return;
             triggerDOMFlash();
-            // Occasionally double-flash for stutter effect
             if (Math.random() < strobeIntensity * 0.6) {
                 setTimeout(triggerDOMFlash, 55);
             }
-            // Reduce interval over time (more frenetic)
             flashInterval = Math.max(22, flashInterval - 0.5);
             setTimeout(scheduleStrobe, flashInterval + Math.random() * flashInterval * 0.5);
         }
 
-        /* ── Canvas flash (inline) ── */
         function canvasFlash() {
             const intensity = 0.15 + strobeIntensity * 0.45 + Math.random() * 0.2;
-            ctx.fillStyle = `rgba(255,255,255,${intensity})`;
+            ctx.fillStyle   = `rgba(255,255,255,${intensity})`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
         /* ── Main animation loop ── */
         function animate() {
             time++;
-
-            // Ramp intensity over ~60 seconds
             strobeIntensity = Math.min(1, time / 3600);
 
-            // Trail fade — lighter fade = more persistent trails as intensity grows
             const fade = 0.30 - strobeIntensity * 0.15;
             ctx.fillStyle = `rgba(10,3,25,${fade})`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             particles.forEach(p => { p.update(); p.draw(); });
 
-            /* Central radial pulse */
             const cx    = canvas.width  / 2;
             const cy    = canvas.height / 2;
             const pulse = Math.sin(time * 0.32) * 90 + 170;
             const grad  = ctx.createRadialGradient(cx, cy, 30, cx, cy, pulse);
-            grad.addColorStop(0, 'rgba(255,20,180,0.9)');
+            grad.addColorStop(0,   'rgba(255,20,180,0.9)');
             grad.addColorStop(0.5, 'rgba(0,200,255,0.3)');
-            grad.addColorStop(1, 'transparent');
+            grad.addColorStop(1,   'transparent');
             ctx.fillStyle = grad;
             ctx.beginPath();
             ctx.arc(cx, cy, pulse, 0, Math.PI * 2);
             ctx.fill();
 
-            /* Spinning laser arms */
             const arms   = 6;
             const angle0 = (time * 0.018) % (Math.PI * 2);
             for (let i = 0; i < arms; i++) {
@@ -328,85 +392,26 @@
                 ctx.restore();
             }
 
-            /* Canvas inline flash — probability rises with intensity */
             if (Math.random() < 0.45 + strobeIntensity * 0.45) canvasFlash();
 
-            /* Background hue chaos (escalates) */
             if (Math.random() < 0.4 + strobeIntensity * 0.5) {
                 document.body.style.background =
-                    `hsl(${Math.floor(Math.random()*360)}, 95%, ${4 + strobeIntensity * 4}%)`;
+                    `hsl(${Math.floor(Math.random() * 360)}, 95%, ${4 + strobeIntensity * 4}%)`;
             }
 
             requestAnimationFrame(animate);
         }
 
-        /* ── AUDIO: Build 5 <audio> instances and preload at page load ──────────────
-         *
-         *  Key constraints for mobile (iOS Safari + Android Chrome):
-         *  - .play() MUST be called synchronously inside the touch/click handler.
-         *    Any await, Promise.then(), setTimeout, or rAF before .play() breaks
-         *    the user-gesture chain and causes a second-tap requirement.
-         *  - currentTime seek is fine to call synchronously even before canplay.
-         *    The browser applies it once data is available.
-         *  - muted=false must be set before .play(), not after.
-         *  - preload="auto" + src set at page load lets the browser buffer the file
-         *    so readyState is already ≥ 1 by the time the user taps.
-         * ──────────────────────────────────────────────────────────────────────── */
-        (function buildAudioInstances() {
-            for (let i = 0; i < INSTANCE_COUNT; i++) {
-                const el = document.createElement('audio');
-                el.src          = AUDIO_SRC;
-                el.loop         = true;
-                el.preload      = 'auto';
-                el.volume       = 1.0;
-                el.muted        = false;   // NOT muted — mobile ignores muted→unmuted in gesture chain
-                el.setAttribute('playsinline', '');
-                el.setAttribute('webkit-playsinline', '');
-                audioContainer.appendChild(el);
-                audioNodes.push({ el, offset: OFFSETS[i] });
-            }
-        })();
-
-        /* ── AUDIO: Fire all 5 synchronously — ZERO async — called inside touch handler ── */
-        function startAudioSync() {
-            for (const { el, offset } of audioNodes) {
-                // Set offset synchronously — browser will apply once buffered
-                // Wrap with a safe fallback if duration is unknown yet (readyState < 1)
-                try {
-                    const dur = el.duration;
-                    el.currentTime = (dur && isFinite(dur) && dur > offset)
-                        ? offset
-                        : 0;
-                } catch (e) {
-                    el.currentTime = 0;
-                }
-
-                // .play() called SYNCHRONOUSLY inside gesture — this is the critical line
-                const promise = el.play();
-
-                // Handle the returned promise without blocking or awaiting
-                if (promise !== undefined) {
-                    promise.catch(err => {
-                        // Only log — do not retry with setTimeout/async (breaks gesture chain)
-                        // If we're here, browser blocked despite gesture; nothing reliable to do
-                        console.warn('Audio play blocked (offset=' + offset + 's):', err.message);
-                    });
-                }
-            }
-        }
-
-        /* ── Start experience — called synchronously from touch/click ── */
+        /* ── Start experience ── */
         function startExperience() {
             if (started) return;
             started = true;
 
-            // 1. Audio FIRST — must be the very first synchronous action after gesture
+            // 1. AUDIO — synchronous Web Audio start, must be first
             startAudioSync();
 
-            // 2. Fullscreen (may be async internally, that's fine — audio is already playing)
-            try {
-                document.documentElement.requestFullscreen?.();
-            } catch (e) { /* not critical */ }
+            // 2. Fullscreen — async internally but audio gesture already consumed above
+            try { document.documentElement.requestFullscreen?.(); } catch (e) {}
 
             // 3. Visuals
             initParticles();
@@ -424,24 +429,24 @@
             });
         }
 
-        /* ── Event listeners ─────────────────────────────────────────────────────
-         *  Use pointerdown (fires before touchstart on modern mobile, and maps to
-         *  mousedown on desktop) as primary. touchstart as secondary fallback for
-         *  older iOS. Both call startExperience() synchronously — no async wrapper.
-         * ──────────────────────────────────────────────────────────────────────── */
-        function onGesture(e) {
-            e.preventDefault();
-            e.stopPropagation();
+        /* ── Single unified gesture handler — one listener, one event type ──────
+         *
+         *  Using ONLY touchstart (with passive:false) on mobile and click on desktop.
+         *  Registering both pointerdown + touchstart + click on the same element
+         *  causes multiple handler invocations per tap which can confuse the gesture
+         *  token system on some iOS versions.
+         *
+         *  Strategy: touchstart if touch device, click otherwise. The `started` guard
+         *  makes the click that fires after touchstart a safe no-op on mobile.
+         * ───────────────────────────────────────────────────────────────────────── */
+        startBtn.addEventListener('touchstart', function handler(e) {
+            e.preventDefault();     // blocks the subsequent synthetic click on mobile
             startExperience();
-        }
+        }, { passive: false, once: true });
 
-        startBtn.addEventListener('pointerdown', onGesture, { passive: false });
-        startBtn.addEventListener('touchstart',  onGesture, { passive: false });
-        // click as final fallback (desktop without pointer events, or event ordering quirks)
-        startBtn.addEventListener('click', e => {
-            e.stopPropagation();
-            startExperience();   // no-op if already started
-        });
+        startBtn.addEventListener('click', function handler(e) {
+            startExperience();
+        }, { once: true });
     </script>
 </body>
 </html>
