@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEON VOID</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: #0a0a0a;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #landing {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #1a0033 0%, #0a0a0a 70%);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        #landing::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(255, 0, 255, 0.04) 50%, transparent 51%),
+                linear-gradient(transparent 49%, rgba(0, 255, 255, 0.04) 50%, transparent 51%);
+            background-size: 80px 80px;
+            animation: gridMove 15s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 80px 80px; }
+        }
+
+        .glow-text {
+            font-size: 6rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-blue),
+                0 0 120px #ff00ff;
+            z-index: 2;
+            animation: titlePulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        #start-btn {
+            position: relative;
+            z-index: 3;
+            padding: 2rem 6rem;
+            font-size: 2.4rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            background: transparent;
+            color: white;
+            border: 5px solid var(--neon-pink);
+            cursor: pointer;
+            box-shadow: 
+                0 0 40px var(--neon-pink),
+                0 0 90px rgba(255, 0, 255, 0.7);
+            transition: all 0.15s ease;
+            pointer-events: all;
+        }
+
+        #start-btn:hover {
+            background: rgba(255, 0, 255, 0.2);
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 70px var(--neon-pink),
+                0 0 140px var(--neon-blue);
+        }
+
+        #sound-note {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            letter-spacing: 0.2em;
+            text-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        #disco {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .bg-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #120033, #220022, #001122);
+            z-index: 1;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <!-- LANDING -->
+    <div id="landing">
+        <div class="glow-text">NEON VOID</div>
+        <div id="sound-note">TURN ON FULL SOUND FOR A BETTER EXPERIENCE</div> 
+        <button id="start-btn">GET STARTED</button>
+    </div>
+
+    <!-- DISCO -->
+    <div id="disco">
+        <div class="bg-layer"></div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <audio id="music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        console.log("Script loaded - ready for interaction");
+
+        const landing = document.getElementById('landing');
+        const disco = document.getElementById('disco');
+        const startBtn = document.getElementById('start-btn');
+        const audio = document.getElementById('music');
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d', { alpha: true });
+
+        let particles = [];
+        let time = 0;
+        let strobeInterval;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height * 0.6;
+                this.size = Math.random() * 6 + 2;
+                this.speedX = Math.random() * 5 - 2.5;
+                this.speedY = Math.random() * 5 - 2.5;
+                this.hue = Math.random() * 360;
+                this.life = 140;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= 1.8;
+                if (this.life <= 0 || this.y > canvas.height) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = (this.life / 160);
+                ctx.fillStyle = `hsl(${ (this.hue + time * 3) % 360 }, 100%, 95%)`;
+                ctx.shadowBlur = 25;
+                ctx.shadowColor = `hsl(${this.hue}, 100%, 75%)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 420; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function extremeFlash() {
+            const alpha = 0.25 + Math.random() * 0.35;
+            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function animate() {
+            time++;
+            ctx.fillStyle = 'rgba(10, 3, 25, 0.25)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Center pulse
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+            const pulse = Math.sin(time * 0.3) * 70 + 140;
+            const grad = ctx.createRadialGradient(cx, cy, 30, cx, cy, pulse);
+            grad.addColorStop(0, 'rgba(255,20,180,0.7)');
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, pulse, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Very aggressive flickering
+            if (Math.random() < 0.65) extremeFlash();
+
+            requestAnimationFrame(animate);
+        }
+
+        function setupExitBlocker() {
+            window.addEventListener('beforeunload', (e) => {
+                e.preventDefault();
+                e.returnValue = '';
+                return '';
+            });
+        }
+
+        function startExperience() {
+            console.log("GET STARTED clicked - starting experience");
+
+            // Instant switch
+            landing.style.display = 'none';
+            disco.style.display = 'block';
+
+            // Music
+            audio.volume = 0.9;
+            audio.play().catch(err => console.log("Music autoplay blocked:", err));
+
+            // Fullscreen
+            const elem = document.documentElement;
+            try {
+                if (elem.requestFullscreen) elem.requestFullscreen();
+                else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+            } catch(e) {}
+
+            // Start visuals
+            initParticles();
+            animate();
+
+            // Rapid strobe + speedup
+            let intervalTime = 110;
+            strobeInterval = setInterval(() => {
+                if (Math.random() < 0.85) extremeFlash();
+                intervalTime = Math.max(28, intervalTime - 6);
+            }, intervalTime);
+
+            // Background chaos
+            setInterval(() => {
+                if (Math.random() < 0.6) {
+                    const hue = Math.floor(Math.random() * 360);
+                    document.body.style.background = `hsl(${hue}, 95%, 7%)`;
+                }
+            }, 60);
+
+            setupExitBlocker();
+        }
+
+        // Multiple ways to trigger
+        startBtn.addEventListener('click', startExperience);
+        startBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            startExperience();
+        });
+
+        // Click anywhere on landing as backup
+        landing.addEventListener('click', (e) => {
+            if (e.target.id !== 'start-btn') {
+                startExperience();
+            }
+        });
+
+        console.log("Event listeners attached successfully");
+    </script>
+</body>
+</html>
