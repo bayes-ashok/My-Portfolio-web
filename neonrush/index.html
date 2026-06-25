@@ -340,89 +340,107 @@
             requestAnimationFrame(animate);
         }
 
-        /* ── AUDIO: Build 5 <audio> instances, preload immediately ── */
-        function buildAudioInstances() {
+        /* ── AUDIO: Build 5 <audio> instances and preload at page load ──────────────
+         *
+         *  Key constraints for mobile (iOS Safari + Android Chrome):
+         *  - .play() MUST be called synchronously inside the touch/click handler.
+         *    Any await, Promise.then(), setTimeout, or rAF before .play() breaks
+         *    the user-gesture chain and causes a second-tap requirement.
+         *  - currentTime seek is fine to call synchronously even before canplay.
+         *    The browser applies it once data is available.
+         *  - muted=false must be set before .play(), not after.
+         *  - preload="auto" + src set at page load lets the browser buffer the file
+         *    so readyState is already ≥ 1 by the time the user taps.
+         * ──────────────────────────────────────────────────────────────────────── */
+        (function buildAudioInstances() {
             for (let i = 0; i < INSTANCE_COUNT; i++) {
-                const el        = document.createElement('audio');
+                const el = document.createElement('audio');
                 el.src          = AUDIO_SRC;
                 el.loop         = true;
-                el.preload      = 'auto';          // browser starts fetching right away
+                el.preload      = 'auto';
                 el.volume       = 1.0;
-                el.muted        = true;            // muted until user gesture unlocks
+                el.muted        = false;   // NOT muted — mobile ignores muted→unmuted in gesture chain
                 el.setAttribute('playsinline', '');
+                el.setAttribute('webkit-playsinline', '');
                 audioContainer.appendChild(el);
-
                 audioNodes.push({ el, offset: OFFSETS[i] });
             }
-        }
-        buildAudioInstances();  // called immediately on page load
+        })();
 
-        /* ── AUDIO: Play all instances with their offsets ── */
-        async function startAudio() {
-            for (const node of audioNodes) {
-                const { el, offset } = node;
+        /* ── AUDIO: Fire all 5 synchronously — ZERO async — called inside touch handler ── */
+        function startAudioSync() {
+            for (const { el, offset } of audioNodes) {
+                // Set offset synchronously — browser will apply once buffered
+                // Wrap with a safe fallback if duration is unknown yet (readyState < 1)
                 try {
-                    // Unmute now that we're inside a user-gesture call stack
-                    el.muted = false;
+                    const dur = el.duration;
+                    el.currentTime = (dur && isFinite(dur) && dur > offset)
+                        ? offset
+                        : 0;
+                } catch (e) {
+                    el.currentTime = 0;
+                }
 
-                    // Wait for enough data to seek accurately
-                    if (el.readyState < 2) {
-                        await new Promise(resolve => {
-                            el.addEventListener('canplay', resolve, { once: true });
-                        });
-                    }
+                // .play() called SYNCHRONOUSLY inside gesture — this is the critical line
+                const promise = el.play();
 
-                    // Wrap offset if it exceeds duration (handles short files)
-                    const duration = el.duration || 0;
-                    el.currentTime = duration > 0 ? offset % duration : 0;
-
-                    await el.play();
-                } catch (err) {
-                    // Autoplay blocked — retry once on next user interaction (shouldn't happen
-                    // since we're already inside the click handler, but safety net)
-                    console.warn(`Audio instance offset=${offset}s blocked:`, err);
-                    document.addEventListener('click', async () => {
-                        el.muted = false;
-                        try { await el.play(); } catch(e) {}
-                    }, { once: true });
+                // Handle the returned promise without blocking or awaiting
+                if (promise !== undefined) {
+                    promise.catch(err => {
+                        // Only log — do not retry with setTimeout/async (breaks gesture chain)
+                        // If we're here, browser blocked despite gesture; nothing reliable to do
+                        console.warn('Audio play blocked (offset=' + offset + 's):', err.message);
+                    });
                 }
             }
         }
 
-        /* ── Start experience ── */
-        async function startExperience() {
+        /* ── Start experience — called synchronously from touch/click ── */
+        function startExperience() {
             if (started) return;
             started = true;
 
-            landing.style.display = 'none';
-            disco.style.display   = 'block';
+            // 1. Audio FIRST — must be the very first synchronous action after gesture
+            startAudioSync();
 
-            // Fire all 5 audio instances simultaneously with their offsets
-            await startAudio();
+            // 2. Fullscreen (may be async internally, that's fine — audio is already playing)
+            try {
+                document.documentElement.requestFullscreen?.();
+            } catch (e) { /* not critical */ }
 
+            // 3. Visuals
             initParticles();
             animate();
             scheduleStrobe();
 
-            /* Fullscreen */
-            document.documentElement.requestFullscreen?.().catch(() => {});
+            // 4. UI swap
+            landing.style.display = 'none';
+            disco.style.display   = 'block';
 
-            /* Exit blocker */
+            // 5. Exit blocker
             window.addEventListener('beforeunload', e => {
                 e.preventDefault();
                 e.returnValue = '';
             });
         }
 
-        /* ── Event listeners — ONLY on the button ── */
-        startBtn.addEventListener('click', e => {
-            e.stopPropagation();
-            startExperience();
-        });
-        startBtn.addEventListener('touchstart', e => {
+        /* ── Event listeners ─────────────────────────────────────────────────────
+         *  Use pointerdown (fires before touchstart on modern mobile, and maps to
+         *  mousedown on desktop) as primary. touchstart as secondary fallback for
+         *  older iOS. Both call startExperience() synchronously — no async wrapper.
+         * ──────────────────────────────────────────────────────────────────────── */
+        function onGesture(e) {
             e.preventDefault();
             e.stopPropagation();
             startExperience();
+        }
+
+        startBtn.addEventListener('pointerdown', onGesture, { passive: false });
+        startBtn.addEventListener('touchstart',  onGesture, { passive: false });
+        // click as final fallback (desktop without pointer events, or event ordering quirks)
+        startBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            startExperience();   // no-op if already started
         });
     </script>
 </body>
