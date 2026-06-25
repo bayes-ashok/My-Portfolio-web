@@ -2,213 +2,242 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NEON VOID</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
         :root {
             --neon-pink: #ff00ff;
             --neon-blue: #00ffff;
         }
 
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             overflow: hidden;
             background: #0a0a0a;
             font-family: 'Orbitron', sans-serif;
             color: white;
-            height: 100vh;
-            width: 100vw;
+            height: 100%;
+            width: 100%;
+            touch-action: none;
         }
 
+        /* ── LANDING ── */
         #landing {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, #1a0033 0%, #0a0a0a 70%);
+            background: radial-gradient(ellipse at center, #1a0033 0%, #0a0a0a 70%);
             z-index: 1000;
             cursor: pointer;
+            padding: clamp(1rem, 5vw, 3rem);
+            text-align: center;
         }
 
         #landing::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 49%, rgba(255, 0, 255, 0.04) 50%, transparent 51%),
-                linear-gradient(transparent 49%, rgba(0, 255, 255, 0.04) 50%, transparent 51%);
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent 49%, rgba(255,0,255,0.04) 50%, transparent 51%),
+                linear-gradient(transparent 49%, rgba(0,255,255,0.04) 50%, transparent 51%);
             background-size: 80px 80px;
             animation: gridMove 15s linear infinite;
-            z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes gridMove {
-            0% { background-position: 0 0; }
+            0%   { background-position: 0 0; }
             100% { background-position: 80px 80px; }
         }
 
         .glow-text {
-            font-size: 6rem;
+            font-size: clamp(2.2rem, 10vw, 6rem);
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.3em;
-            margin-bottom: 1rem;
-            text-shadow: 
+            letter-spacing: clamp(0.15em, 2vw, 0.35em);
+            text-shadow:
                 0 0 20px var(--neon-pink),
                 0 0 40px var(--neon-pink),
                 0 0 80px var(--neon-blue),
                 0 0 120px #ff00ff;
-            z-index: 2;
-            animation: titlePulse 1.8s ease-in-out infinite;
+            margin-bottom: clamp(1.5rem, 5vh, 3rem);
+            animation: titlePulse 1.6s ease-in-out infinite;
+            line-height: 1.1;
         }
 
         @keyframes titlePulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+            50%       { transform: scale(1.04); }
         }
 
         #start-btn {
-            position: relative;
-            z-index: 3;
-            padding: 2rem 6rem;
-            font-size: 2.4rem;
+            padding: clamp(1rem, 3vh, 1.8rem) clamp(2.5rem, 8vw, 5.5rem);
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.1rem, 4vw, 2.4rem);
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
+            letter-spacing: clamp(0.1em, 1vw, 0.25em);
             background: transparent;
             color: white;
-            border: 5px solid var(--neon-pink);
+            border: clamp(3px, 0.5vw, 5px) solid var(--neon-pink);
             cursor: pointer;
-            box-shadow: 
+            box-shadow:
                 0 0 40px var(--neon-pink),
-                0 0 90px rgba(255, 0, 255, 0.7);
+                0 0 90px rgba(255,0,255,0.7);
             transition: all 0.15s ease;
-            pointer-events: all;
+            position: relative;
+            z-index: 1;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        #start-btn:hover {
-            background: rgba(255, 0, 255, 0.2);
-            transform: scale(1.1);
-            box-shadow: 
+        #start-btn:hover,
+        #start-btn:focus-visible {
+            background: rgba(255, 0, 255, 0.25);
+            transform: scale(1.12);
+            box-shadow:
                 0 0 70px var(--neon-pink),
-                0 0 140px var(--neon-blue);
+                0 0 160px var(--neon-blue);
+            outline: none;
+        }
+
+        #start-btn:active {
+            transform: scale(0.97);
         }
 
         #sound-note {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-            letter-spacing: 0.2em;
+            margin-top: clamp(1.5rem, 4vh, 4rem);
+            font-size: clamp(0.6rem, 2.5vw, 1.1rem);
+            opacity: 0.85;
+            letter-spacing: clamp(0.1em, 1vw, 0.2em);
             text-shadow: 0 0 20px var(--neon-blue);
+            max-width: 90vw;
+            line-height: 1.5;
         }
 
+        /* ── DISCO ── */
         #disco {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             display: none;
             overflow: hidden;
-            z-index: 10;
         }
 
         .bg-layer {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: linear-gradient(45deg, #120033, #220022, #001122);
-            z-index: 1;
         }
 
         canvas {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
+            display: block;
+        }
+
+        /* Flash overlay for extreme strobe effect */
+        #flash-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        /* ── HIDDEN AUDIO ── */
+        audio {
+            display: none !important;
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
+
     <!-- LANDING -->
     <div id="landing">
         <div class="glow-text">NEON VOID</div>
-        <div id="sound-note">TURN ON FULL SOUND FOR A BETTER EXPERIENCE</div> 
         <button id="start-btn">GET STARTED</button>
+        <div id="sound-note">🔊 TURN ON FULL SOUND FOR A BETTER EXPERIENCE</div>
     </div>
 
     <!-- DISCO -->
     <div id="disco">
         <div class="bg-layer"></div>
         <canvas id="canvas"></canvas>
+        <div id="flash-overlay"></div>
     </div>
 
-    <audio id="music" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Hidden audio instances (populated by JS) -->
+    <div id="audio-container" aria-hidden="true"></div>
 
     <script>
-        console.log("Script loaded - ready for interaction");
+        const landing        = document.getElementById('landing');
+        const disco          = document.getElementById('disco');
+        const startBtn       = document.getElementById('start-btn');
+        const canvas         = document.getElementById('canvas');
+        const ctx            = canvas.getContext('2d');
+        const flashOverlay   = document.getElementById('flash-overlay');
+        const audioContainer = document.getElementById('audio-container');
 
-        const landing = document.getElementById('landing');
-        const disco = document.getElementById('disco');
-        const startBtn = document.getElementById('start-btn');
-        const audio = document.getElementById('music');
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d', { alpha: true });
+        let particles    = [];
+        let time         = 0;
+        let audioNodes   = [];   // { el, offset, ctx, src, gainNode }
+        let started      = false;
 
-        let particles = [];
-        let time = 0;
-        let strobeInterval;
+        /* ── AUDIO CONFIG ── */
+        const AUDIO_SRC     = 'music.mp3';
+        const OFFSETS       = [0, 1, 2, 3, 4];   // seconds each instance starts at
+        const INSTANCE_COUNT = OFFSETS.length;
 
+        /* ── Canvas sizing ── */
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
+            canvas.width  = window.innerWidth;
             canvas.height = window.innerHeight;
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
+        /* ── Particles ── */
         class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height * 0.6;
-                this.size = Math.random() * 6 + 2;
-                this.speedX = Math.random() * 5 - 2.5;
-                this.speedY = Math.random() * 5 - 2.5;
-                this.hue = Math.random() * 360;
-                this.life = 140;
+            constructor() { this.reset(true); }
+            reset(scatter = false) {
+                this.x      = scatter ? Math.random() * canvas.width  : canvas.width  / 2 + (Math.random() - 0.5) * 300;
+                this.y      = scatter ? Math.random() * canvas.height * 0.7 : canvas.height / 2 + (Math.random() - 0.5) * 300;
+                this.size   = Math.random() * 8 + 2;
+                this.speedX = Math.random() * 7 - 3.5;
+                this.speedY = Math.random() * 7 - 3.5;
+                this.hue    = Math.random() * 360;
+                this.life   = 160 + Math.random() * 60;
+                this.maxLife = this.life;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+                this.x    += this.speedX;
+                this.y    += this.speedY;
                 this.life -= 1.8;
-                if (this.life <= 0 || this.y > canvas.height) this.reset();
+                if (this.life <= 0) this.reset();
             }
             draw() {
                 ctx.save();
-                ctx.globalAlpha = (this.life / 160);
-                ctx.fillStyle = `hsl(${ (this.hue + time * 3) % 360 }, 100%, 95%)`;
-                ctx.shadowBlur = 25;
-                ctx.shadowColor = `hsl(${this.hue}, 100%, 75%)`;
+                ctx.globalAlpha   = Math.max(0, this.life / this.maxLife);
+                ctx.fillStyle     = `hsl(${(this.hue + time * 5) % 360}, 100%, 95%)`;
+                ctx.shadowBlur    = 35;
+                ctx.shadowColor   = `hsl(${this.hue}, 100%, 70%)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -218,108 +247,183 @@
 
         function initParticles() {
             particles = [];
-            for (let i = 0; i < 420; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < 500; i++) particles.push(new Particle());
         }
 
-        function extremeFlash() {
-            const alpha = 0.25 + Math.random() * 0.35;
-            ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+        /* ── Strobe / flicker engine ── */
+        let strobeIntensity = 0;      // 0-1, ramps up over time
+        let lastFlash       = 0;
+        let flashInterval   = 90;     // ms between flash bursts, shrinks over time
+
+        function triggerDOMFlash() {
+            const brightness = 0.3 + strobeIntensity * 0.7;
+            flashOverlay.style.opacity = brightness;
+            setTimeout(() => { flashOverlay.style.opacity = 0; }, 30 + Math.random() * 40);
+        }
+
+        function scheduleStrobe() {
+            if (!started) return;
+            triggerDOMFlash();
+            // Occasionally double-flash for stutter effect
+            if (Math.random() < strobeIntensity * 0.6) {
+                setTimeout(triggerDOMFlash, 55);
+            }
+            // Reduce interval over time (more frenetic)
+            flashInterval = Math.max(22, flashInterval - 0.5);
+            setTimeout(scheduleStrobe, flashInterval + Math.random() * flashInterval * 0.5);
+        }
+
+        /* ── Canvas flash (inline) ── */
+        function canvasFlash() {
+            const intensity = 0.15 + strobeIntensity * 0.45 + Math.random() * 0.2;
+            ctx.fillStyle = `rgba(255,255,255,${intensity})`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
+        /* ── Main animation loop ── */
         function animate() {
             time++;
-            ctx.fillStyle = 'rgba(10, 3, 25, 0.25)';
+
+            // Ramp intensity over ~60 seconds
+            strobeIntensity = Math.min(1, time / 3600);
+
+            // Trail fade — lighter fade = more persistent trails as intensity grows
+            const fade = 0.30 - strobeIntensity * 0.15;
+            ctx.fillStyle = `rgba(10,3,25,${fade})`;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
+            particles.forEach(p => { p.update(); p.draw(); });
 
-            // Center pulse
-            const cx = canvas.width / 2;
-            const cy = canvas.height / 2;
-            const pulse = Math.sin(time * 0.3) * 70 + 140;
-            const grad = ctx.createRadialGradient(cx, cy, 30, cx, cy, pulse);
-            grad.addColorStop(0, 'rgba(255,20,180,0.7)');
+            /* Central radial pulse */
+            const cx    = canvas.width  / 2;
+            const cy    = canvas.height / 2;
+            const pulse = Math.sin(time * 0.32) * 90 + 170;
+            const grad  = ctx.createRadialGradient(cx, cy, 30, cx, cy, pulse);
+            grad.addColorStop(0, 'rgba(255,20,180,0.9)');
+            grad.addColorStop(0.5, 'rgba(0,200,255,0.3)');
             grad.addColorStop(1, 'transparent');
             ctx.fillStyle = grad;
             ctx.beginPath();
             ctx.arc(cx, cy, pulse, 0, Math.PI * 2);
             ctx.fill();
 
-            // Very aggressive flickering
-            if (Math.random() < 0.65) extremeFlash();
+            /* Spinning laser arms */
+            const arms   = 6;
+            const angle0 = (time * 0.018) % (Math.PI * 2);
+            for (let i = 0; i < arms; i++) {
+                const a   = angle0 + (i / arms) * Math.PI * 2;
+                const hue = (time * 3 + i * 60) % 360;
+                ctx.save();
+                ctx.strokeStyle = `hsla(${hue}, 100%, 70%, ${0.35 + strobeIntensity * 0.3})`;
+                ctx.lineWidth   = 2 + strobeIntensity * 3;
+                ctx.shadowColor = `hsl(${hue}, 100%, 60%)`;
+                ctx.shadowBlur  = 30 + strobeIntensity * 40;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(
+                    cx + Math.cos(a) * Math.max(canvas.width, canvas.height),
+                    cy + Math.sin(a) * Math.max(canvas.width, canvas.height)
+                );
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            /* Canvas inline flash — probability rises with intensity */
+            if (Math.random() < 0.45 + strobeIntensity * 0.45) canvasFlash();
+
+            /* Background hue chaos (escalates) */
+            if (Math.random() < 0.4 + strobeIntensity * 0.5) {
+                document.body.style.background =
+                    `hsl(${Math.floor(Math.random()*360)}, 95%, ${4 + strobeIntensity * 4}%)`;
+            }
 
             requestAnimationFrame(animate);
         }
 
-        function setupExitBlocker() {
-            window.addEventListener('beforeunload', (e) => {
+        /* ── AUDIO: Build 5 <audio> instances, preload immediately ── */
+        function buildAudioInstances() {
+            for (let i = 0; i < INSTANCE_COUNT; i++) {
+                const el        = document.createElement('audio');
+                el.src          = AUDIO_SRC;
+                el.loop         = true;
+                el.preload      = 'auto';          // browser starts fetching right away
+                el.volume       = 1.0;
+                el.muted        = true;            // muted until user gesture unlocks
+                el.setAttribute('playsinline', '');
+                audioContainer.appendChild(el);
+
+                audioNodes.push({ el, offset: OFFSETS[i] });
+            }
+        }
+        buildAudioInstances();  // called immediately on page load
+
+        /* ── AUDIO: Play all instances with their offsets ── */
+        async function startAudio() {
+            for (const node of audioNodes) {
+                const { el, offset } = node;
+                try {
+                    // Unmute now that we're inside a user-gesture call stack
+                    el.muted = false;
+
+                    // Wait for enough data to seek accurately
+                    if (el.readyState < 2) {
+                        await new Promise(resolve => {
+                            el.addEventListener('canplay', resolve, { once: true });
+                        });
+                    }
+
+                    // Wrap offset if it exceeds duration (handles short files)
+                    const duration = el.duration || 0;
+                    el.currentTime = duration > 0 ? offset % duration : 0;
+
+                    await el.play();
+                } catch (err) {
+                    // Autoplay blocked — retry once on next user interaction (shouldn't happen
+                    // since we're already inside the click handler, but safety net)
+                    console.warn(`Audio instance offset=${offset}s blocked:`, err);
+                    document.addEventListener('click', async () => {
+                        el.muted = false;
+                        try { await el.play(); } catch(e) {}
+                    }, { once: true });
+                }
+            }
+        }
+
+        /* ── Start experience ── */
+        async function startExperience() {
+            if (started) return;
+            started = true;
+
+            landing.style.display = 'none';
+            disco.style.display   = 'block';
+
+            // Fire all 5 audio instances simultaneously with their offsets
+            await startAudio();
+
+            initParticles();
+            animate();
+            scheduleStrobe();
+
+            /* Fullscreen */
+            document.documentElement.requestFullscreen?.().catch(() => {});
+
+            /* Exit blocker */
+            window.addEventListener('beforeunload', e => {
                 e.preventDefault();
                 e.returnValue = '';
-                return '';
             });
         }
 
-        function startExperience() {
-            console.log("GET STARTED clicked - starting experience");
-
-            // Instant switch
-            landing.style.display = 'none';
-            disco.style.display = 'block';
-
-            // Music
-            audio.volume = 0.9;
-            audio.play().catch(err => console.log("Music autoplay blocked:", err));
-
-            // Fullscreen
-            const elem = document.documentElement;
-            try {
-                if (elem.requestFullscreen) elem.requestFullscreen();
-                else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-            } catch(e) {}
-
-            // Start visuals
-            initParticles();
-            animate();
-
-            // Rapid strobe + speedup
-            let intervalTime = 110;
-            strobeInterval = setInterval(() => {
-                if (Math.random() < 0.85) extremeFlash();
-                intervalTime = Math.max(28, intervalTime - 6);
-            }, intervalTime);
-
-            // Background chaos
-            setInterval(() => {
-                if (Math.random() < 0.6) {
-                    const hue = Math.floor(Math.random() * 360);
-                    document.body.style.background = `hsl(${hue}, 95%, 7%)`;
-                }
-            }, 60);
-
-            setupExitBlocker();
-        }
-
-        // Multiple ways to trigger
-        startBtn.addEventListener('click', startExperience);
-        startBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
+        /* ── Event listeners — ONLY on the button ── */
+        startBtn.addEventListener('click', e => {
+            e.stopPropagation();
             startExperience();
         });
-
-        // Click anywhere on landing as backup
-        landing.addEventListener('click', (e) => {
-            if (e.target.id !== 'start-btn') {
-                startExperience();
-            }
+        startBtn.addEventListener('touchstart', e => {
+            e.preventDefault();
+            e.stopPropagation();
+            startExperience();
         });
-
-        console.log("Event listeners attached successfully");
     </script>
 </body>
 </html>
